@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI App Blueprint Visualizer</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>AI App Blueprint Visualizer</h1>
+    </header>
+
+    <main>
+      <section class="input-area">
+        <h2>Describe Your App</h2>
+        <textarea
+          id="appDescription"
+          placeholder="Describe the app you want to visualize... For example: 'A task management app with user authentication, a dashboard showing tasks, and the ability to create, edit, and delete tasks.'"
+        ></textarea>
+        <div
+          id="errorMessage"
+          style="
+            color: #ef4444;
+            margin-top: 0.5rem;
+            display: none;
+            transition: opacity 0.3s;
+          "
+        >
+          <!-- TODO: creo que transition no funciona con el JS -->
+          Mensaje de error
+        </div>
+        <div class="button-group">
+          <button class="btn-primary" id="generateBtn">
+            Generate Blueprint
+          </button>
+          <button class="btn-secondary" id="clearBtn">Clear</button>
+        </div>
+      </section>
+
+      <section class="output-area">
+        <div>
+          <h2>Blueprint Diagram</h2>
+          <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <span>Generating blueprint...</span>
+          </div>
+          <div class="diagram-container empty" id="diagramContainer">
+            <p>Your blueprint diagram will appear here</p>
+          </div>
+        </div>
+
+        <div>
+          <h2>Description</h2>
+          <div class="description-container empty" id="descriptionContainer">
+            <p>Blueprint description will appear here</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
