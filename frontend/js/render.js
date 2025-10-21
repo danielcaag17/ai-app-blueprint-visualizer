@@ -1,11 +1,11 @@
 // Render blueprint function
 export async function renderBlueprint(
-  { mermaidCode, description },
+  // TODO: hacer algo con analysis
+  { mermaidCode, description, analysis },
   diagramContainer,
   descriptionContainer
 ) {
   // Render Mermaid diagram
-
   diagramContainer.classList.remove("empty");
   const id = "mermaid-" + Date.now();
   diagramContainer.innerHTML = `<div class="mermaid" id="${id}">${mermaidCode}</div>`;

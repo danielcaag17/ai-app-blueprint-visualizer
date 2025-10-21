@@ -1,6 +1,23 @@
 // TODO: Reemplazar con la llamada real a la API
 export async function generateBlueprintFromAPI(description) {
-  // Simular delay de red
+  // TODO: en el futuro deberá ser otro endpoint
+  const response = await fetch("http://localhost:8000/blueprint/full", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ description }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error generando blueprint");
+  }
+
+  return await response.json();
+}
+
+/*
+// Simular delay de red
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   // Retorna un dummy response
@@ -31,4 +48,4 @@ classDef tooltipNode fill:#f9f,stroke:#333,stroke-width:2px;
       ],
     },
   };
-}
+  */

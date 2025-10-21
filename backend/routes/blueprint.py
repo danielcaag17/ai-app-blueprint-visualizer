@@ -12,6 +12,7 @@ mermaid_service = MermaidService()
 @router.post("/", response_model=Blueprint)
 async def analyze_description(request: BlueprintRequest):
     try:
+        # TODO: estas dos llamadas deben ser asíncronas y la de structure_service deberá esperar por eso
         analysis = ai_service.analyze_description(request.description)
         mermaid_code, title, overview, components = mermaid_service.generate_mermaid_and_metadata(analysis)
 
