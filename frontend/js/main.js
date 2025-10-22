@@ -1,10 +1,10 @@
-import { setupEventHandlers } from './events.js';
+import { setupEventHandlers } from "./events/events.js";
 
 // Initialize Mermaid
 mermaid.initialize({
   startOnLoad: false,
-  theme: 'default',
-  securityLevel: 'loose'
+  theme: "default",
+  securityLevel: "loose",
 });
 
 setupEventHandlers();
