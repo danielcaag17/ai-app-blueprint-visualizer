@@ -1,7 +1,9 @@
+import { createTree } from "./utils.js";
+
 // Render blueprint function
 export async function renderBlueprint(
   // TODO: hacer algo con analysis
-  { mermaidCode, description, analysis },
+  { mermaidCode, description },
   diagramContainer,
   descriptionContainer
 ) {
@@ -25,4 +27,29 @@ export async function renderBlueprint(
   }
 
   descriptionContainer.innerHTML = html;
+}
+
+export async function renderTechnologies({ analysis }) {
+  const technologiesContainer = document.getElementById(
+    "technologiesContainer"
+  );
+
+  let html;
+  technologiesContainer.classList.remove("empty");
+  if (analysis.recommended_technologies?.length) {
+    html = '<ul style="margin-left: 1.5rem; color: var(--text-secondary);">';
+    analysis.recommended_technologies.forEach(
+      (c) => (html += `<li style="margin-bottom: 0.5rem;">${c}</li>`)
+    );
+    html += "</ul>";
+  }
+
+  technologiesContainer.innerHTML = html;
+}
+
+export async function renderStructure({ structure }) {
+  const structureContainer = document.getElementById("structureContainer");
+  structureContainer.classList.remove("empty");
+  structureContainer.innerHTML = "";
+  structureContainer.appendChild(createTree(structure));
 }

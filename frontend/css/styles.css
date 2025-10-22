@@ -202,3 +202,39 @@
     padding: 1.25rem;
   }
 }
+
+/* File Structure */
+/* TODO: hay algo que solapa con los estilos de descriptionContainer y por tanto tambien con technologiesContainer */
+ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.folder::before {
+  content: "📁 ";
+}
+
+.file::before {
+  content: "📄 ";
+}
+
+.collapsible {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  margin-right: 5px;
+}
+
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+.nested {
+  display: block; /* Mostrar todas abiertas por defecto */
+}
