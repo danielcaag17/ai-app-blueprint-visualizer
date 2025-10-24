@@ -1,0 +1,3 @@
+.output-viewport.standard {
+  grid-template-columns: 1fr 2fr;
+}

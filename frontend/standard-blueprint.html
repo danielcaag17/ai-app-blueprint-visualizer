@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI App Blueprint Visualizer</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/globals.css" />
+    <link rel="stylesheet" href="css/layouts.css" />
+    <link rel="stylesheet" href="css/components.css" />
+
+    <link rel="stylesheet" href="css/pages/standard-blueprint.css" />
+
+    <!-- <script type="module" src="js/main.js"></script> -->
+  </head>
+  <body>
+    <header class="header-app">
+      <h1 class="header-app-title">AI App Blueprint Visualizer</h1>
+    </header>
+    <!-- <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <span>Generating blueprint...</span>
+    </div> -->
+
+    <main class="output-viewport standard">
+      <!-- Input Column -->
+      <section class="input-column">
+        <textarea
+          class="box"
+          id="outputDescription"
+          disabled
+          placeholder="Your app description"
+        ></textarea>
+        <button class="btn-secondary" id="resetBtn">Restart</button>
+      </section>
+
+      <!-- Blueprint Column -->
+      <section class="blueprint-column">
+        <div class="blueprint-area">
+          <h2 class="blueprint-title">Blueprint Diagram</h2>
+          <div class="diagram-container empty" id="diagramContainer">
+            <p>Your blueprint diagram will appear here</p>
+          </div>
+        </div>
+
+        <div class="blueprint-description-area">
+          <h2 class="description-title">Description</h2>
+          <div class="description-container empty" id="descriptionContainer">
+            <p class="description-info">
+              Blueprint description will appear here
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
