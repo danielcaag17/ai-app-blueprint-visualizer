@@ -5,7 +5,7 @@ import { EventsPremiumBlueprint } from "./events_premium_blueprint.js";
 // Registry Pattern
 const eventsRegistry = {
   home: EventsHome,
-  standardBueprint: EventsStandardBlueprint,
+  standardBlueprint: EventsStandardBlueprint,
   premiumBlueprint: EventsPremiumBlueprint,
 };
 

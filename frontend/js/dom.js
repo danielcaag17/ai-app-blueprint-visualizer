@@ -5,14 +5,16 @@ export function getElements() {
     appDescription: document.getElementById("appDescription"),
     generateBtn: document.getElementById("generateBtn"),
     clearBtn: document.getElementById("clearBtn"),
-    resetBtn: document.getElementById("resetBtn"),
     diagramContainer: document.getElementById("diagramContainer"),
     descriptionContainer: document.getElementById("descriptionContainer"),
-    loading: document.getElementById("loading"),
     outputDescription: document.getElementById("outputDescription"),
+
+    resetBtn: document.getElementById("resetBtn"),
+    loading: document.getElementById("loading"),
   };
 }
 
+// TODO: ahora mismo no se llama, pues nunca se da este caso, cuando sea SPA sí
 export function resetOutput() {
   elements.appDescription.value = "";
   elements.diagramContainer.classList.add("empty");
