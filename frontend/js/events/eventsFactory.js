@@ -1,6 +1,6 @@
-import { EventsHome } from "./events_home.js";
-import { EventsStandardBlueprint } from "./events_standard_blueprint.js";
-import { EventsPremiumBlueprint } from "./events_premium_blueprint.js";
+import { EventsHome } from "./eventsHome.js";
+import { EventsStandardBlueprint } from "./eventsStandardBlueprint.js";
+import { EventsPremiumBlueprint } from "./eventsPremiumBlueprint.js";
 
 // Registry Pattern
 const eventsRegistry = {
