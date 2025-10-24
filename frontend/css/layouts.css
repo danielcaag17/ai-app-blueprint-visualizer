@@ -20,14 +20,12 @@
   gap: 1rem;
 }
 
-/* OUTPUT VIEW */
+/* OUTPUT VIEW - STANDARD */
 .output-viewport {
   height: 100%;
-  background-color: gray;
   display: grid;
   grid-template-columns: auto;
   gap: 2rem;
-  padding: 1.5rem;
 }
 
 /* TODO: repetido en styles */
@@ -35,7 +33,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 0;
 }
 
 /* TODO: repetido en styles */
@@ -47,10 +44,8 @@
 }
 
 .blueprint-column {
-  background-color: blueviolet;
   display: flex;
   flex-direction: column;
-  padding: 0;
 }
 
 .blueprint-area {
@@ -60,7 +55,7 @@
 }
 
 .diagram-container {
-  background-color: indigo;
+  border: 1px solid #000;
   flex: 1;
   display: flex;
   align-items: center;
@@ -74,10 +69,7 @@
 }
 
 .description-container {
-  background-color: yellowgreen;
   flex: 1;
-}
-
-.description-info {
-  color: blue;
+  padding: 1rem;
+  border: 1px solid #000;
 }
