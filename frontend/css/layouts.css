@@ -1,0 +1,71 @@
+/* TODO: por ahora todo placeholders */
+.header-app {
+  /* Placeholder */
+  background-color: aqua;
+}
+
+.output-viewport {
+  height: 100%;
+  background-color: gray;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+/* TODO: repetido en styles */
+.input-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+}
+
+/* TODO: repetido en styles */
+.box {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 1rem;
+  flex: 1;
+}
+
+.blueprint-column {
+  background-color: blueviolet;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.blueprint-title,
+.description-title {
+  color: darkslategray;
+}
+
+.blueprint-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.diagram-container {
+  background-color: indigo;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blueprint-description-area {
+  min-height: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.description-container {
+  background-color: yellowgreen;
+  flex: 1;
+}
+
+.description-info {
+  color: blue;
+}
