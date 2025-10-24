@@ -10,11 +10,11 @@ export class EventsHome {
   setupEventHandlers() {
     const elements = getElements();
 
-    // Generate Blueprint Handler
-    // En este caso sí que se pasa el bloque de elements, TODO: por ahora
     if (elements.generateBtn) {
+      // Generate Blueprint Handler
       elements.generateBtn.addEventListener(
         "click",
+        // En este caso sí que se pasa el bloque de elements, TODO: por ahora
         // TODO: estos elements no están controlados y darán error
         handleGenerate({ elements })
       );
@@ -26,11 +26,6 @@ export class EventsHome {
         "click",
         handleClear({ appDescription: elements.appDescription })
       );
-    }
-
-    // Reset Handler, volver al estado inicial de la aplicación
-    if (elements.resetBtn) {
-      elements.resetBtn.addEventListener("click", handleReset());
     }
 
     if (elements.appDescription && elements.generateBtn) {
