@@ -45,32 +45,17 @@ body {
   flex-direction: column;
 }
 
-/* TODO: por ahora lo pondré sin responsive */
-/* main {
-  max-width: 1200px;
-  margin: 0 auto;
+main {
+  margin: 0;
   padding: 2rem 1rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
 }
-
-/* Creo que en verdad este media query debería estar asociado a una clase y no a un elemento html  */
-
-/*
-@media (min-width: 768px) {
-  main {
-    grid-template-columns: 1fr 1fr;
-    padding: 2rem;
-  }
-} */
 
 section {
   background-color: var(--bg-primary);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
-  overflow: hidden;  /* Hace que los hijos no sobresalgan --> no eclipsen el border-radius*/
+  overflow: hidden; /* Hacer que los hijos no sobresalgan --> no eclipsen el border-radius*/
 }
 
 h2 {
