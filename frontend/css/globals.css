@@ -16,6 +16,7 @@
   --button-secondary-hover: #e5e5e5;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --header-height: 10vh;
 }
 header {
   background-color: var(--bg-primary);
@@ -25,6 +26,7 @@ header {
   top: 0;
   z-index: 10;
   box-shadow: var(--shadow-sm);
+  height: var(--header-height);
 }
 
 h1 {
@@ -54,13 +56,19 @@ section {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
-  overflow: hidden; /* Hacer que los hijos no sobresalgan --> no eclipsen el border-radius*/
+  overflow: visible;
 }
-
 h2 {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
   color: var(--text-primary);
 }
 
@@ -73,4 +81,10 @@ button {
   cursor: pointer;
   transition: all 0.2s;
   font-family: inherit;
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
 }

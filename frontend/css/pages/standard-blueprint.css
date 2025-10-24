@@ -1,9 +1,9 @@
-.output-viewport.standard {
+.output-viewport {
   grid-template-columns: 1fr 2fr;
 }
 
 @media (max-width: 768px) {
-  .output-viewport.standard {
+  .output-viewport {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     padding: 2rem 4rem;
