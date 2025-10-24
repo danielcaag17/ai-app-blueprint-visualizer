@@ -50,7 +50,7 @@ Está diseñado para desarrolladores, startups y entusiastas que quieren validar
 
 ---
 
-## 🧱 Estructura de Ficheros (prototipo inicial)
+## 🧱 Estructura de Ficheros
 
 ```bash
 
@@ -58,27 +58,53 @@ ai-app-blueprint-visualizer/
 │
 ├── backend/ # API principal con FastAPI y lógica de generación
 │ ├── main.py # Punto de entrada FastAPI
+│ ├── models/
+│ │ ├── analysis_schemas.py
+│ │ ├── blueprint_schemas.py
+│ │ ├── request_schemas.py
+│ │ └── response_schemas.py
 │ ├── routes/
-│ │ ├── analyze.py # Endpoint para procesar descripciones
+│ │ ├── blueprint.py # Endpoint para procesar descripciones y generar diagrama mermaid
+│ │ └── full_blueprint.py
 │ │ └── generate_structure.py
 │ ├── services/
 │ │ ├── ai_model.py # Interfaz con modelo LLM local
+│ │ ├── mermaid_generator.py # Interfaz con modelo LLM local
 │ │ └── structure_builder.py # Generador de estructura a partir del análisis
-│ ├── models/
-│ │ ├── request_schemas.py
-│ │ └── response_schemas.py
 │ └── utils/
-│ └── helpers.py
+│ └──── helpers.py
 │
 ├── frontend/ # Interfaz web para introducir ideas y visualizar resultados
-│ ├── index.html # UI principal
+│ ├── home.html
+│ ├── premium-blueprint.html
+│ ├── standard-blueprint.html
 │ ├── css/
-│ │ └── styles.css
+│ │ ├── pages/
+│ │ │ ├── home.css
+│ │ │ ├── premium-blueprint.css
+│ │ │ └── standard-blueprint.css
+│ │ ├── components.css
+│ │ ├── globals.css
+│ │ ├── layouts.css
+│ │ └── reset.css
 │ ├── js/
+│ │ ├── events/
+│ │ │ ├── clearTextarea.js
+│ │ │ ├── eventsFactory.js
+│ │ │ ├── eventsHome.js
+│ │ │ ├── eventsPremiumBlueprint.js
+│ │ │ ├── eventsStandardBlueprint.js
+│ │ │ ├── generateBtn.js
+│ │ │ ├── inputWatcher.js
+│ │ │ ├── keyboardTextarea.js
+│ │ │ └── reset.js
+│ │ ├── api.js
+│ │ ├── dom.js
 │ │ ├── main.js
-│ │ └── renderVisualizer.js
+│ │ ├── render.js
+│ │ └── utils.js
 │ └── assets/
-│ └── logo.svg
+│ └──── logo.svg
 │
 ├── ai/ # Modelos, prompts y configuración de IA
 │ ├── base_model.py # Wrapper para modelo local (Llama, Mistral, etc.)
@@ -95,8 +121,11 @@ ai-app-blueprint-visualizer/
 │ └── generated_blueprints/
 │ └── blueprint_2025_10_21.json
 │
-├── docs/ # Documentación, diagramas o notas de desarrollo (Opcional)
+├── docs/ # Documentación, diagramas o notas de desarrollo
 │
+├── .gitignore
+├── context.txt # Contexto actualizado de la aplicación
+├── notas.txt # Futuras implementaciones
 ├── requirements.txt
 ├── README.md
 └── LICENSE
@@ -105,7 +134,7 @@ ai-app-blueprint-visualizer/
 
 ---
 
-## 💡 Instalación y Uso (versión inicial)
+## 💡 Instalación y Uso
 
 ```bash
 # 1. Clonar repositorio
