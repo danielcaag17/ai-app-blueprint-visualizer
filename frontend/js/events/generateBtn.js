@@ -6,6 +6,9 @@ import {
 } from "../render.js";
 import { resetOutput, setLoading } from "../dom.js";
 
+// TODO: por ahora es una variable, luego deberá ser calculada
+const PREMIUM = false;
+
 // Gestionar la acción al hacer click en el botón de generate
 export function handleGenerate({ elements }) {
   return async function () {
@@ -14,12 +17,18 @@ export function handleGenerate({ elements }) {
     // Si no hay descripción el botón está desactivado
     if (!description) return;
 
-    // UI transition
-    // TODO: revisar que es lo que hace
-    document.getElementById("inputView").classList.add("hide");
-    document.getElementById("resultView").classList.add("show");
-    document.getElementById("inputView").style.display = "none";
-    elements.outputDescription.value = description;
+    if (PREMIUM) {
+      window.location.href = "/frontend/premium-blueprint.html";
+    } else {
+      window.location.href = "/frontend/standard-blueprint.html";
+    }
+
+    // TODO: esto estará dando error porque el elemento es null
+    if (elements.outputDescription) {
+      elements.outputDescription.value = description;
+    } else {
+      console.log("Error con outputDescription");
+    }
 
     // TODO: esto ya no es del todo necesario
     resetOutput();
@@ -31,6 +40,7 @@ export function handleGenerate({ elements }) {
       // Render el esquema junto con la descripción
       await renderBlueprint(
         result,
+        // TODO: dará error pues los elementos son null
         elements.diagramContainer,
         elements.descriptionContainer
       );
@@ -46,7 +56,10 @@ export function handleGenerate({ elements }) {
       elements.diagramContainer.innerHTML = `<p style="color: #ef4444;">Error generating blueprint.</p>`;
       elements.descriptionContainer.innerHTML = `<p style="color: #ef4444;">Failed to generate description.</p>`;
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        console.log("Han pasado 3 segundos");
+      }, 3000);
     }
   };
 }
