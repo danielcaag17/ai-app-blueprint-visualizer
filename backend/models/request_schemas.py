@@ -22,4 +22,4 @@ class Specifications(BaseModel):
 
 class BlueprintRequest(BaseModel):
     descripcion: str
-specifications: Optional[Specifications] = None
+    specifications: Optional[Specifications] = None
