@@ -1,0 +1,21 @@
+{
+  "descripcion": "Una aplicación web que gestiona reservas de hoteles.",
+  "especificaciones": {
+    "arquitectura": ["Frontend", "Backend", "Base de Datos", "Microservicios"],
+    "base_de_datos": ["PostgreSQL", "MongoDB", "MySQL", "Redis", "SQLite"],
+    "dominio": ["Educación", "E-commerce", "Hotelería", "Salud"],
+    "entorno_de_desarrollo": ["Docker", "VSCode", "PyCharm"],
+    "estilo_de_comunicacion": ["REST", "GraphQL", "gRPC", "WebSockets"],
+    "frameworks": ["Django", "Flask", "React", "Angular", "Spring Boot"],
+    "integracion_continua": ["GitHub Actions", "GitLab CI", "Jenkins"],
+    "lenguaje": ["Python"],
+    "nivel_detalle": ["alto", "bajo", "medio"],
+    "nube": ["AWS", "GCP", "Azure", "DigitalOcean"],
+    "patrones_de_diseno": ["MVC", "Repository", "Factory", "Observer"],
+    "principios": ["SOLID", "Clean Architecture", "DDD"],
+    "seguridad": ["OAuth2", "JWT", "HTTPS", "RBAC"],
+    "tecnologias": ["Python", "JavaScript", "TypeScript", "Java", "C#"],
+    "testing": ["Pytest", "Jest", "Cypress", "JUnit"],
+    "tipo_de_aplicacion": ["Web", "Móvil", "Desktop", "REST API", "CLI"]
+  }
+}
