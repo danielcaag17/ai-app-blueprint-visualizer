@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from backend.core.config import settings
 from backend.router import router as api_router
+from backend.core import model_manager
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -21,18 +23,15 @@ app.add_middleware(
 # Incluir rutas de la API
 app.include_router(api_router, prefix="/api")
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Al iniciar la app
+    await model_manager.load_models()
 
-# Evento al iniciar la aplicación (útil para precargar modelos)
-# TODO: cambiar on_event
-@app.on_event("startup")
-async def startup_event():
-    print("🚀 Inicializando API y cargando modelos...")
-    # Podrías cargar tus modelos globales aquí si lo deseas
-
-# Evento al apagar la aplicación (útil para limpiar recursos)
-@app.on_event("shutdown")
-async def shutdown_event():
-    print("🛑 Cerrando API y liberando recursos...")
+    yield  # Aquí corre la app
+    
+    # Al cerrar la app
+    await model_manager.unload_models()
 
 
 @app.get("/")
