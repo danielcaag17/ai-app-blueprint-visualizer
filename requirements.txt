@@ -1,3 +1,6 @@
 fastapi
 uvicorn
 pydantic
+transformers
+datasets
+accelerate>=0.26.0
