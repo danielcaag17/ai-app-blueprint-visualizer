@@ -18,6 +18,13 @@ ENV/
 *.env
 *.sqlite3
 
+# === Machine Learning models ===
+*.pt
+*.bin
+fine_tuned_model/
+train.jsonl
+val.jsonl
+
 # === System Files ===
 .DS_Store
 Thumbs.db
