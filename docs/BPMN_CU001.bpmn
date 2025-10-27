@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_BlueprintApp_Full" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.6.1">
+  <bpmn:collaboration id="Collaboration_BlueprintApp">
+    <bpmn:participant id="Participant_Frontend" name="Frontend / Usuario" processRef="Process_Frontend" />
+    <bpmn:participant id="Participant_Backend" name="Backend" processRef="Process_Backend" />
+    <bpmn:messageFlow id="Message_Request" name="POST /api/blueprint" sourceRef="Event_091d1zm" targetRef="StartEvent_Backend" />
+    <bpmn:messageFlow id="Message_Response" name="Respuesta (Mermaid + descripción)" sourceRef="Task_SendResponse" targetRef="Event_ReceiveResponse" />
+    <bpmn:messageFlow id="Message_Error" name="Error 500 + mensaje de error" sourceRef="Task_SendError" targetRef="Event_ReceiveResponse" />
+    <bpmn:textAnnotation id="TextAnnotation_1krghzt">
+      <bpmn:text>usuario escribe en el textarea principal</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0vkoce7" associationDirection="None" sourceRef="Task_DescribeApp" targetRef="TextAnnotation_1krghzt" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Frontend" isExecutable="false">
+    <bpmn:sequenceFlow id="F1" sourceRef="StartEvent_Home" targetRef="Task_DescribeApp" />
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_DescribeApp" targetRef="Task_AddSpecs" />
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_AddSpecs" targetRef="Task_Generate" />
+    <bpmn:sequenceFlow id="F4" sourceRef="Task_Generate" targetRef="Task_Reset" />
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Generate" targetRef="Event_ReceiveResponse" />
+    <bpmn:sequenceFlow id="F6" sourceRef="Event_ReceiveResponse" targetRef="Gateway_Success" />
+    <bpmn:sequenceFlow id="F7_Success" sourceRef="Gateway_Success" targetRef="Task_RenderMermaid" />
+    <bpmn:sequenceFlow id="F8" sourceRef="Task_RenderMermaid" targetRef="Task_EditDiagram" />
+    <bpmn:sequenceFlow id="F9" sourceRef="Task_EditDiagram" targetRef="Task_ReadDescription" />
+    <bpmn:sequenceFlow id="F10" sourceRef="Task_ReadDescription" targetRef="EndEvent_Success" />
+    <bpmn:sequenceFlow id="F7_Error" sourceRef="Gateway_Success" targetRef="Task_ShowError" />
+    <bpmn:sequenceFlow id="F11" sourceRef="Task_ShowError" targetRef="Task_LogError" />
+    <bpmn:sequenceFlow id="F12" sourceRef="Task_LogError" targetRef="EndEvent_Error" />
+    <bpmn:sequenceFlow id="F13" sourceRef="Task_Reset" targetRef="Task_ClearData" />
+    <bpmn:sequenceFlow id="F14" sourceRef="Task_ClearData" targetRef="EndEvent_Reset" />
+    <bpmn:endEvent id="EndEvent_Reset" name="Reinicio completado">
+      <bpmn:incoming>Flow_0qz6378</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_Success" name="Blueprint generado con éxito">
+      <bpmn:incoming>Flow_09dsyr7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_Home" name="Usuario accede al Home &#39;/&#39;">
+      <bpmn:outgoing>Flow_0tzyhau</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_DescribeApp" name="Redactar descripción de la aplicación">
+      <bpmn:incoming>Flow_0tzyhau</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m7obau</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_ReadDescription" name="Leer descripción del blueprint">
+      <bpmn:incoming>Flow_161bcms</bpmn:incoming>
+      <bpmn:outgoing>Flow_09dsyr7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_EditDiagram" name="Editar diagrama (opcional)">
+      <bpmn:incoming>Flow_04fe1ou</bpmn:incoming>
+      <bpmn:outgoing>Flow_161bcms</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:scriptTask id="Task_LogError" name="Loggear error en consola">
+      <bpmn:incoming>Flow_0dnss8d</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ilohj2</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:endEvent id="EndEvent_Error" name="Proceso finalizado con error">
+      <bpmn:incoming>Flow_1ilohj2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="Event_ReceiveResponse" name="Recibir respuesta del backend">
+      <bpmn:outgoing>Flow_1ikr8g8</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1wsqexe" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:exclusiveGateway id="Gateway_Success" name="¿Respuesta con éxito?">
+      <bpmn:incoming>Flow_1ikr8g8</bpmn:incoming>
+      <bpmn:outgoing>Flow_12tlsal</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0gdnwfr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Task_RenderMermaid" name="Renderizar diagrama Mermaid">
+      <bpmn:incoming>Flow_0gdnwfr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0weelje</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:scriptTask id="Task_ShowError" name="Mostrar &#39;Error generating blueprint&#39;">
+      <bpmn:incoming>Flow_12tlsal</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dnss8d</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:serviceTask id="Task_ClearData" name="Eliminar datos del formulario">
+      <bpmn:incoming>Flow_08zkce3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qz6378</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Task_Reset" name="Pulsar &#39;Reset&#39;">
+      <bpmn:incoming>Flow_1vjpjf9</bpmn:incoming>
+      <bpmn:outgoing>Flow_08zkce3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0qz6378" sourceRef="Task_ClearData" targetRef="EndEvent_Reset" />
+    <bpmn:sequenceFlow id="Flow_09dsyr7" sourceRef="Task_ReadDescription" targetRef="EndEvent_Success" />
+    <bpmn:sequenceFlow id="Flow_0tzyhau" sourceRef="StartEvent_Home" targetRef="Task_DescribeApp" />
+    <bpmn:sequenceFlow id="Flow_161bcms" sourceRef="Task_EditDiagram" targetRef="Task_ReadDescription" />
+    <bpmn:sequenceFlow id="Flow_0dnss8d" sourceRef="Task_ShowError" targetRef="Task_LogError" />
+    <bpmn:sequenceFlow id="Flow_1ilohj2" sourceRef="Task_LogError" targetRef="EndEvent_Error" />
+    <bpmn:sequenceFlow id="Flow_1ikr8g8" sourceRef="Event_ReceiveResponse" targetRef="Gateway_Success" />
+    <bpmn:sequenceFlow id="Flow_12tlsal" sourceRef="Gateway_Success" targetRef="Task_ShowError" />
+    <bpmn:sequenceFlow id="Flow_0gdnwfr" sourceRef="Gateway_Success" targetRef="Task_RenderMermaid" />
+    <bpmn:sequenceFlow id="Flow_08zkce3" sourceRef="Task_Reset" targetRef="Task_ClearData" />
+    <bpmn:sequenceFlow id="Flow_0m7obau" sourceRef="Task_DescribeApp" targetRef="Gateway_0tlly0e" />
+    <bpmn:exclusiveGateway id="Gateway_0tlly0e" name="¿Añadir especificaciones?">
+      <bpmn:incoming>Flow_0m7obau</bpmn:incoming>
+      <bpmn:incoming>Flow_0voy40o</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f3tv93</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1icf12q</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_AddSpecs" name="Añadir especificaciones técnicas">
+      <bpmn:incoming>Flow_1icf12q</bpmn:incoming>
+      <bpmn:outgoing>Flow_0voy40o</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="Event_091d1zm">
+      <bpmn:incoming>Flow_17ybkqs</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_0f3tv93" sourceRef="Gateway_0tlly0e" targetRef="Task_Generate" />
+    <bpmn:sequenceFlow id="Flow_1icf12q" sourceRef="Gateway_0tlly0e" targetRef="Task_AddSpecs" />
+    <bpmn:sequenceFlow id="Flow_0voy40o" name="Si" sourceRef="Task_AddSpecs" targetRef="Gateway_0tlly0e" />
+    <bpmn:userTask id="Task_Generate" name="Pulsar botón &#39;Generate&#39;">
+      <bpmn:incoming>Flow_0f3tv93</bpmn:incoming>
+      <bpmn:outgoing>Flow_17ybkqs</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_17ybkqs" sourceRef="Task_Generate" targetRef="Event_091d1zm" />
+    <bpmn:exclusiveGateway id="Gateway_0rmo00t" name="¿Reset?">
+      <bpmn:incoming>Flow_0weelje</bpmn:incoming>
+      <bpmn:outgoing>Flow_04fe1ou</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1vjpjf9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_04fe1ou" sourceRef="Gateway_0rmo00t" targetRef="Task_EditDiagram" />
+    <bpmn:sequenceFlow id="Flow_1vjpjf9" name="Si" sourceRef="Gateway_0rmo00t" targetRef="Task_Reset" />
+    <bpmn:sequenceFlow id="Flow_0weelje" sourceRef="Task_RenderMermaid" targetRef="Gateway_0rmo00t" />
+  </bpmn:process>
+  <bpmn:process id="Process_Backend" isExecutable="false">
+    <bpmn:sequenceFlow id="B1" sourceRef="StartEvent_Backend" targetRef="Task_LLM1" />
+    <bpmn:sequenceFlow id="B2" sourceRef="Task_LLM1" targetRef="Task_LLM2" />
+    <bpmn:sequenceFlow id="B3" sourceRef="Task_LLM2" targetRef="Task_CreateJSON" />
+    <bpmn:sequenceFlow id="B4" sourceRef="Task_CreateJSON" targetRef="Task_ToMermaid" />
+    <bpmn:sequenceFlow id="B5" sourceRef="Task_ToMermaid" targetRef="Task_LLM3" />
+    <bpmn:sequenceFlow id="B6" sourceRef="Task_LLM3" targetRef="Gateway_ErrorCheck" />
+    <bpmn:sequenceFlow id="B7_Success" sourceRef="Gateway_ErrorCheck" targetRef="Task_SendResponse" />
+    <bpmn:sequenceFlow id="B7_Error" sourceRef="Gateway_ErrorCheck" targetRef="Task_SendError" />
+    <bpmn:sequenceFlow id="B8" sourceRef="Task_SendResponse" targetRef="EndEvent_Backend" />
+    <bpmn:sequenceFlow id="B9" sourceRef="Task_SendError" targetRef="EndEvent_Backend" />
+    <bpmn:endEvent id="EndEvent_Backend" name="Proceso backend completado">
+      <bpmn:incoming>Flow_1su8u8e</bpmn:incoming>
+      <bpmn:incoming>Flow_0kwkzra</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_Backend" name="Recibir POST /api/blueprint">
+      <bpmn:outgoing>Flow_0zjcmeu</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_LLM1" name="LLM - Entity: Extraer entidades y atributos">
+      <bpmn:incoming>Flow_0zjcmeu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cxgjt1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_LLM2" name="LLM - Relation: Generar relaciones entre entidades">
+      <bpmn:incoming>Flow_0cxgjt1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0397xpm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:scriptTask id="Task_CreateJSON" name="Construir JSON con entidades + relaciones">
+      <bpmn:incoming>Flow_0397xpm</bpmn:incoming>
+      <bpmn:outgoing>Flow_08sr297</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Task_ToMermaid" name="Transformar JSON a código Mermaid">
+      <bpmn:incoming>Flow_08sr297</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jgvavw</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:serviceTask id="Task_LLM3" name="LLM - Description: Generar descripción del diagrama">
+      <bpmn:incoming>Flow_0jgvavw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nulear</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_ErrorCheck" name="¿Error en proceso?">
+      <bpmn:incoming>Flow_0nulear</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m898zl</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1oft62s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sendTask id="Task_SendError" name="Enviar code=500 + mensaje de error">
+      <bpmn:incoming>Flow_1oft62s</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kwkzra</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sendTask id="Task_SendResponse" name="Enviar respuesta (Mermaid + descripción)">
+      <bpmn:incoming>Flow_0m898zl</bpmn:incoming>
+      <bpmn:outgoing>Flow_1su8u8e</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_1su8u8e" sourceRef="Task_SendResponse" targetRef="EndEvent_Backend" />
+    <bpmn:sequenceFlow id="Flow_0kwkzra" sourceRef="Task_SendError" targetRef="EndEvent_Backend" />
+    <bpmn:sequenceFlow id="Flow_0zjcmeu" sourceRef="StartEvent_Backend" targetRef="Task_LLM1" />
+    <bpmn:sequenceFlow id="Flow_0cxgjt1" sourceRef="Task_LLM1" targetRef="Task_LLM2" />
+    <bpmn:sequenceFlow id="Flow_0397xpm" sourceRef="Task_LLM2" targetRef="Task_CreateJSON" />
+    <bpmn:sequenceFlow id="Flow_08sr297" sourceRef="Task_CreateJSON" targetRef="Task_ToMermaid" />
+    <bpmn:sequenceFlow id="Flow_0jgvavw" sourceRef="Task_ToMermaid" targetRef="Task_LLM3" />
+    <bpmn:sequenceFlow id="Flow_0nulear" sourceRef="Task_LLM3" targetRef="Gateway_ErrorCheck" />
+    <bpmn:sequenceFlow id="Flow_0m898zl" sourceRef="Gateway_ErrorCheck" targetRef="Task_SendResponse" />
+    <bpmn:sequenceFlow id="Flow_1oft62s" sourceRef="Gateway_ErrorCheck" targetRef="Task_SendError" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Full">
+    <bpmndi:BPMNPlane id="BPMNPlane_Full" bpmnElement="Collaboration_BlueprintApp">
+      <bpmndi:BPMNShape id="Frontend_di" bpmnElement="Participant_Frontend" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1770" height="480" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Reset_di" bpmnElement="EndEvent_Reset">
+        <dc:Bounds x="1832" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1821" y="216" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Success_di" bpmnElement="EndEvent_Success">
+        <dc:Bounds x="1832" y="302" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1816" y="338" width="68" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_Home_di" bpmnElement="StartEvent_Home">
+        <dc:Bounds x="222" y="302" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="196" y="338" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DescribeApp_di" bpmnElement="Task_DescribeApp">
+        <dc:Bounds x="340" y="280" width="120" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReadDescription_di" bpmnElement="Task_ReadDescription">
+        <dc:Bounds x="1605" y="280" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EditDiagram_di" bpmnElement="Task_EditDiagram">
+        <dc:Bounds x="1405" y="280" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LogError_di" bpmnElement="Task_LogError">
+        <dc:Bounds x="1405" y="380" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Error_di" bpmnElement="EndEvent_Error">
+        <dc:Bounds x="1832" y="402" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1816" y="450" width="67" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01up6yw_di" bpmnElement="Event_ReceiveResponse">
+        <dc:Bounds x="892" y="302" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="867" y="265" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Success_di" bpmnElement="Gateway_Success" isMarkerVisible="true">
+        <dc:Bounds x="985" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1018.5" y="348" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RenderMermaid_di" bpmnElement="Task_RenderMermaid">
+        <dc:Bounds x="1115" y="280" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ShowError_di" bpmnElement="Task_ShowError">
+        <dc:Bounds x="1115" y="380" width="130" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ClearData_di" bpmnElement="Task_ClearData">
+        <dc:Bounds x="1610" y="160" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Reset_di" bpmnElement="Task_Reset">
+        <dc:Bounds x="1410" y="160" width="120" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0tlly0e_di" bpmnElement="Gateway_0tlly0e" isMarkerVisible="true">
+        <dc:Bounds x="515" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="496" y="352" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AddSpecs_di" bpmnElement="Task_AddSpecs">
+        <dc:Bounds x="480" y="180" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_091d1zm_di" bpmnElement="Event_091d1zm">
+        <dc:Bounds x="792" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Generate_di" bpmnElement="Task_Generate">
+        <dc:Bounds x="630" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_08qhvxu" bpmnElement="Gateway_0rmo00t" isMarkerVisible="true">
+        <dc:Bounds x="1295" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1309" y="351" width="42" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0qz6378_di" bpmnElement="Flow_0qz6378">
+        <di:waypoint x="1730" y="190" />
+        <di:waypoint x="1832" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09dsyr7_di" bpmnElement="Flow_09dsyr7">
+        <di:waypoint x="1735" y="320" />
+        <di:waypoint x="1832" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tzyhau_di" bpmnElement="Flow_0tzyhau">
+        <di:waypoint x="258" y="320" />
+        <di:waypoint x="340" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_161bcms_di" bpmnElement="Flow_161bcms">
+        <di:waypoint x="1535" y="320" />
+        <di:waypoint x="1605" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dnss8d_di" bpmnElement="Flow_0dnss8d">
+        <di:waypoint x="1245" y="420" />
+        <di:waypoint x="1405" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ilohj2_di" bpmnElement="Flow_1ilohj2">
+        <di:waypoint x="1535" y="420" />
+        <di:waypoint x="1832" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ikr8g8_di" bpmnElement="Flow_1ikr8g8">
+        <di:waypoint x="928" y="320" />
+        <di:waypoint x="985" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12tlsal_di" bpmnElement="Flow_12tlsal">
+        <di:waypoint x="1010" y="345" />
+        <di:waypoint x="1010" y="420" />
+        <di:waypoint x="1115" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gdnwfr_di" bpmnElement="Flow_0gdnwfr">
+        <di:waypoint x="1035" y="320" />
+        <di:waypoint x="1115" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08zkce3_di" bpmnElement="Flow_08zkce3">
+        <di:waypoint x="1530" y="190" />
+        <di:waypoint x="1610" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m7obau_di" bpmnElement="Flow_0m7obau">
+        <di:waypoint x="460" y="320" />
+        <di:waypoint x="515" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f3tv93_di" bpmnElement="Flow_0f3tv93">
+        <di:waypoint x="565" y="320" />
+        <di:waypoint x="630" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1icf12q_di" bpmnElement="Flow_1icf12q">
+        <di:waypoint x="540" y="295" />
+        <di:waypoint x="540" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0voy40o_di" bpmnElement="Flow_0voy40o">
+        <di:waypoint x="540" y="260" />
+        <di:waypoint x="540" y="295" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="550" y="275" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17ybkqs_di" bpmnElement="Flow_17ybkqs">
+        <di:waypoint x="750" y="320" />
+        <di:waypoint x="792" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04fe1ou_di" bpmnElement="Flow_04fe1ou">
+        <di:waypoint x="1345" y="320" />
+        <di:waypoint x="1405" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vjpjf9_di" bpmnElement="Flow_1vjpjf9">
+        <di:waypoint x="1320" y="295" />
+        <di:waypoint x="1320" y="190" />
+        <di:waypoint x="1410" y="190" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1330" y="240" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0weelje_di" bpmnElement="Flow_0weelje">
+        <di:waypoint x="1245" y="320" />
+        <di:waypoint x="1295" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Backend_di" bpmnElement="Participant_Backend" isHorizontal="true">
+        <dc:Bounds x="160" y="590" width="1770" height="390" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Backend_di" bpmnElement="EndEvent_Backend">
+        <dc:Bounds x="1832" y="762" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1807" y="806" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_Backend_di" bpmnElement="StartEvent_Backend">
+        <dc:Bounds x="222" y="762" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="206" y="798" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LLM1_di" bpmnElement="Task_LLM1">
+        <dc:Bounds x="355" y="740" width="150" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LLM2_di" bpmnElement="Task_LLM2">
+        <dc:Bounds x="595" y="740" width="150" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CreateJSON_di" bpmnElement="Task_CreateJSON">
+        <dc:Bounds x="845" y="740" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ToMermaid_di" bpmnElement="Task_ToMermaid">
+        <dc:Bounds x="1065" y="740" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LLM3_di" bpmnElement="Task_LLM3">
+        <dc:Bounds x="1275" y="740" width="150" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_ErrorCheck_di" bpmnElement="Gateway_ErrorCheck" isMarkerVisible="true">
+        <dc:Bounds x="1495" y="755" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1554.5" y="766" width="47" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SendError_di" bpmnElement="Task_SendError">
+        <dc:Bounds x="1585" y="860" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SendResponse_di" bpmnElement="Task_SendResponse">
+        <dc:Bounds x="1585" y="660" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1su8u8e_di" bpmnElement="Flow_1su8u8e">
+        <di:waypoint x="1735" y="700" />
+        <di:waypoint x="1784" y="700" />
+        <di:waypoint x="1784" y="780" />
+        <di:waypoint x="1832" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kwkzra_di" bpmnElement="Flow_0kwkzra">
+        <di:waypoint x="1735" y="900" />
+        <di:waypoint x="1784" y="900" />
+        <di:waypoint x="1784" y="780" />
+        <di:waypoint x="1832" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zjcmeu_di" bpmnElement="Flow_0zjcmeu">
+        <di:waypoint x="258" y="780" />
+        <di:waypoint x="355" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cxgjt1_di" bpmnElement="Flow_0cxgjt1">
+        <di:waypoint x="505" y="780" />
+        <di:waypoint x="595" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0397xpm_di" bpmnElement="Flow_0397xpm">
+        <di:waypoint x="745" y="780" />
+        <di:waypoint x="845" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08sr297_di" bpmnElement="Flow_08sr297">
+        <di:waypoint x="995" y="780" />
+        <di:waypoint x="1065" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jgvavw_di" bpmnElement="Flow_0jgvavw">
+        <di:waypoint x="1215" y="780" />
+        <di:waypoint x="1275" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nulear_di" bpmnElement="Flow_0nulear">
+        <di:waypoint x="1425" y="780" />
+        <di:waypoint x="1495" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m898zl_di" bpmnElement="Flow_0m898zl">
+        <di:waypoint x="1520" y="755" />
+        <di:waypoint x="1520" y="700" />
+        <di:waypoint x="1585" y="700" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oft62s_di" bpmnElement="Flow_1oft62s">
+        <di:waypoint x="1520" y="805" />
+        <di:waypoint x="1520" y="900" />
+        <di:waypoint x="1585" y="900" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0vkoce7_di" bpmnElement="Association_0vkoce7">
+        <di:waypoint x="362" y="360" />
+        <di:waypoint x="334" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1krghzt_di" bpmnElement="TextAnnotation_1krghzt" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="270" y="390" width="99.99274099883856" height="54.5744901473237" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Message_Request_di" bpmnElement="Message_Request">
+        <di:waypoint x="810" y="340" />
+        <di:waypoint x="810" y="606" />
+        <di:waypoint x="240" y="606" />
+        <di:waypoint x="240" y="762" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="738" y="403" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Message_Response_di" bpmnElement="Message_Response">
+        <di:waypoint x="1660" y="660" />
+        <di:waypoint x="1660" y="499" />
+        <di:waypoint x="910" y="499" />
+        <di:waypoint x="910" y="338" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="850" y="452" width="60" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Message_Error_di" bpmnElement="Message_Error">
+        <di:waypoint x="1740" y="900" />
+        <di:waypoint x="1740" y="544" />
+        <di:waypoint x="910" y="544" />
+        <di:waypoint x="910" y="338" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1016" y="421" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
