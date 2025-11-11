@@ -1,0 +1,100 @@
+# Contexto General – AI App Blueprint Visualizer
+
+## 🧭 Descripción general
+
+**AI App Blueprint Visualizer** es una herramienta que genera automáticamente un **plano técnico (blueprint)** de una aplicación a partir de una descripción en lenguaje natural.
+
+El sistema analiza el texto proporcionado por el usuario y produce:
+- Una **estructura de carpetas coherente** (backend + frontend)
+- Un **análisis técnico y funcional**
+- Un **diagrama arquitectónico** en formato **Mermaid.js**
+- **Recomendaciones tecnológicas** adecuadas al tipo de aplicación
+
+---
+
+## 💡 Ejemplo de uso
+
+> Usuario: “Quiero una app para gestionar reservas de restaurantes”
+
+El sistema genera:
+- Un análisis semántico del tipo de aplicación  
+- Un diagrama técnico en Mermaid.js  
+- Una estructura base de archivos para backend y frontend  
+- Recomendaciones tecnológicas (lenguaje, frameworks, base de datos, etc.)
+
+---
+
+## 🧱 Stack tecnológico inicial
+
+| Componente | Tecnología |
+|-------------|-------------|
+| **Backend** | FastAPI (Python) |
+| **Frontend** | HTML + JavaScript + Tailwind |
+| **IA** | Modelos open source (LLaMA 3, Mistral 7B) con posible fine-tuning |
+| **Visualización** | Mermaid.js o D3.js |
+| **Persistencia** | JSON o SQLite (simple y portable) |
+
+---
+
+## ⚙️ Enfoque de desarrollo
+
+- Priorizar **calidad arquitectónica** sobre velocidad.  
+- Iterar en **entregas semanales pequeñas y verificables**.  
+- Mantener **documentación clara, modular y mantenible**.  
+- Fomentar la **extensibilidad futura** del sistema.  
+- Limitar el uso de IA a **modelos open source**, sin depender de servicios externos como GPT-4.
+
+---
+
+## 🔁 Flujo general de funcionamiento
+
+1. El usuario introduce una descripción textual de la aplicación.  
+2. El sistema procesa la entrada mediante un modelo de IA open source.  
+3. Se generan los siguientes elementos:  
+   - Análisis funcional y técnico  
+   - Diagrama arquitectónico (Mermaid.js)  
+   - Recomendaciones tecnológicas  
+   - Estructura base del proyecto  
+4. El frontend visualiza los resultados en una **interfaz clara y visual**.
+
+---
+
+## 🧩 Consideraciones estratégicas
+
+- Este proyecto forma parte de una **estrategia personal de construcción de un ecosistema tecnológico propio**.  
+- Los proyectos derivados se integrarán en una futura **corporación tecnológica personal**.  
+- El código se diseña para ser **modular, extensible y mantenible**, con una visión a largo plazo.
+
+---
+
+## 📈 Estado actual
+
+**Fase:** Definición arquitectónica inicial  
+**Objetivos inmediatos:**
+- Definir la arquitectura general del sistema.  
+- Diseñar la estructura base de carpetas.  
+- Implementar los primeros endpoints del backend:  
+  - `/analyze`  
+  - `/generate_structure`  
+  - `/generate_full_blueprint`  
+- Integrar la generación de diagramas con **Mermaid.js**.  
+- Probar flujo end-to-end básico desde frontend a backend.
+
+---
+
+## 🎯 Objetivo a corto plazo
+
+Construir una **versión funcional mínima (MVP)** capaz de:
+- Recibir descripciones textuales de apps.  
+- Generar un análisis técnico + diagrama Mermaid.js.  
+- Crear una estructura inicial del proyecto basada en el análisis.  
+- Mostrar los resultados en una **UI limpia e interactiva**.
+
+---
+
+## 🗂️ Relación con otros contextos
+
+- `context_backend.md`: Detalla la arquitectura, endpoints y lógica del backend.  
+- `context_frontend.md`: Explica la interfaz, componentes y flujo de visualización.  
+- `history/`: Registra versiones previas de este contexto y cambios significativos.
+

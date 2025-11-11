@@ -64,5 +64,4 @@ coverage.*
 .cache/
 
 # === Miscellaneous ===
-.chatgpt/contexts/context.txt
 notas.md
