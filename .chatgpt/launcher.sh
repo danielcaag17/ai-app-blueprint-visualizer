@@ -1,0 +1,1 @@
+# Idea futura para automatizar los prompts templates con el contexto
