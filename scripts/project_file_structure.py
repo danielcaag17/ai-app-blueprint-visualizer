@@ -7,23 +7,28 @@ ROOT_DIR = ".."  # o la ruta a tu proyecto
 OUTPUT_FILE = "../docs/project_file_structure.md"
 
 # Carpetas o archivos a ignorar
-IGNORE = {".venv", ".env", ".git", "__pycache__", "node_modules"}
+IGNORE = {".venv", ".env", ".git", "__pycache__", "node_modules", "dist", "build"}
 
 def tree_to_md(path, prefix=""):
     md = ""
     items = sorted(os.listdir(path))
-    for i, item in enumerate(items):
-        if item in IGNORE:
-            continue  # Saltar elementos a ignorar
+    
+    # Separar carpetas y archivos
+    dirs = [item for item in items if os.path.isdir(os.path.join(path, item)) and item not in IGNORE]
+    files = [item for item in items if os.path.isfile(os.path.join(path, item)) and item not in IGNORE]
+    
+    # Primero procesar carpetas
+    for i, folder in enumerate(dirs):
+        folder_path = os.path.join(path, folder)
+        connector = "├── " if i < len(dirs) - 1 or files else "└── "
+        md += f"{prefix}{connector}{folder}/\n"
+        md += tree_to_md(folder_path, prefix + ("│   " if i < len(dirs) - 1 or files else "    "))
+    
+    # Luego procesar archivos
+    for j, file in enumerate(files):
+        connector = "├── " if j < len(files) - 1 else "└── "
+        md += f"{prefix}{connector}{file}\n"
 
-        item_path = os.path.join(path, item)
-        connector = "├── " if i < len(items) - 1 else "└── "
-
-        if os.path.isdir(item_path):
-            md += f"{prefix}{connector}{item}/\n"
-            md += tree_to_md(item_path, prefix + ("│   " if i < len(items) - 1 else "    "))
-        else:
-            md += f"{prefix}{connector}{item}\n"
     return md
 
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:

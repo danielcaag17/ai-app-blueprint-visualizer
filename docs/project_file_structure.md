@@ -2,27 +2,23 @@
 
 ├── .chatgpt/
 │   ├── contexts/
+│   │   ├── history/
+│   │   │   ├── 2025-11-11_context_v1.md
+│   │   │   └── _log.md
 │   │   ├── backend.txt
-│   │   ├── context_general.md
-│   │   └── history/
-│   │       ├── 2025-11-11_context_v1.md
-│   │       └── _log.md
-│   ├── launcher.sh
-│   └── templates/
-│       ├── architecture_design.md
-│       ├── bug_analysis.md
-│       ├── context_template.md
-│       ├── docstring_generator.md
-│       ├── refactor_code.md
-│       └── test_generator.md
-├── .gitignore
-├── LICENSE
-├── README.md
+│   │   └── context_general.md
+│   ├── templates/
+│   │   ├── architecture_design.md
+│   │   ├── bug_analysis.md
+│   │   ├── context_template.md
+│   │   ├── docstring_generator.md
+│   │   ├── refactor_code.md
+│   │   └── test_generator.md
+│   └── launcher.sh
 ├── backend/
 │   ├── core/
 │   │   ├── config.py
 │   │   └── model_manager.py
-│   ├── main.py
 │   ├── ml_models/
 │   │   ├── entity_extractor/
 │   │   │   ├── dataset/
@@ -74,7 +70,6 @@
 │   │   ├── blueprint_schemas.py
 │   │   ├── request_schemas.py
 │   │   └── response_schemas.py
-│   ├── router.py
 │   ├── routes/
 │   │   ├── __init__.py
 │   │   ├── blueprint.py
@@ -87,8 +82,10 @@
 │   │   ├── json_builder.py
 │   │   ├── mermaid_generator.py
 │   │   └── structure_builder.py
-│   └── utils/
-│       └── helpers.py
+│   ├── utils/
+│   │   └── helpers.py
+│   ├── main.py
+│   └── router.py
 ├── docs/
 │   ├── BPMN_CU0001.md
 │   ├── BPMN_CU0001.png
@@ -98,13 +95,8 @@
 │   ├── input-llm-example.json
 │   └── project_file_structure.md
 ├── frontend/
-│   ├── eslint.config.js
-│   ├── index.html
 │   ├── old/
-│   │   ├── home.html
 │   │   ├── js/
-│   │   │   ├── api.js
-│   │   │   ├── dom.js
 │   │   │   ├── events/
 │   │   │   │   ├── clearTextarea.js
 │   │   │   │   ├── eventsFactory.js
@@ -115,27 +107,25 @@
 │   │   │   │   ├── inputWatcher.js
 │   │   │   │   ├── keyboardTeaxtarea.js
 │   │   │   │   └── reset.js
+│   │   │   ├── api.js
+│   │   │   ├── dom.js
 │   │   │   ├── main.js
 │   │   │   ├── render.js
 │   │   │   └── utils.js
+│   │   ├── home.html
 │   │   ├── premium-blueprint.html
 │   │   └── standard-blueprint.html
-│   ├── package.json
-│   ├── pnpm-lock.yaml
-│   ├── pnpm-workspace.yaml
 │   ├── public/
 │   ├── src/
-│   │   ├── App.css
-│   │   ├── App.tsx
 │   │   ├── assets/
 │   │   │   ├── css/
-│   │   │   │   ├── components.css
-│   │   │   │   ├── globals.css
-│   │   │   │   ├── layouts.css
 │   │   │   │   ├── pages/
 │   │   │   │   │   ├── home.css
 │   │   │   │   │   ├── premium-blueprint.css
 │   │   │   │   │   └── standard-blueprint.css
+│   │   │   │   ├── components.css
+│   │   │   │   ├── globals.css
+│   │   │   │   ├── layouts.css
 │   │   │   │   └── reset.css
 │   │   │   └── logo.svg
 │   │   ├── components/
@@ -143,13 +133,23 @@
 │   │   │   ├── InputView.tsx
 │   │   │   ├── Loading.tsx
 │   │   │   └── OutputView.tsx
+│   │   ├── App.css
+│   │   ├── App.tsx
 │   │   ├── index.css
 │   │   └── main.tsx
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
 │   ├── tsconfig.app.json
 │   ├── tsconfig.json
 │   ├── tsconfig.node.json
 │   └── vite.config.ts
+├── scripts/
+│   └── project_file_structure.py
+├── .gitignore
+├── LICENSE
+├── README.md
 ├── notas.md
-├── requirements.txt
-└── scripts/
-    └── project_file_structure.py
+└── requirements.txt
