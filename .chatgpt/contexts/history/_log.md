@@ -1,9 +1,9 @@
 # Context History Log
 
-# 2025-12-X
+# 2025-11-11 v2
 
-- Próximos cambios
+- Añadido `context_backend.md` para tener un contexto específico para ese módulo
 
 ## 2025-11-11 v1
 
-- Añadido el directorio `/contexts` con el `context_general.md`, `context_backend.md` y `context_frontend,md`
+- Añadido el directorio `/contexts` con el `context_general.md`
