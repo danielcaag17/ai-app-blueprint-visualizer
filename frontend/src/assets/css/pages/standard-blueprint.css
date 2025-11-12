@@ -1,0 +1,17 @@
+/* TODO: ver una solución más óptima que utilizar la id para dar estilos, ahora
+tiene colisión con components.css */
+#outputView {
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 768px) {
+  .output-viewport {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 2rem 4rem;
+  }
+}
+
+.btn-secondary {
+  margin: auto;
+}

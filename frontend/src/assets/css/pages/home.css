@@ -1,0 +1,24 @@
+/* TODO: modificar todo lo relacionado con output-viewport */
+.output-viewport,
+.input-viewport.non-active {
+  display: none;
+}
+
+.output-viewport.active {
+  display: grid;
+}
+
+@media (max-width: 768px) {
+  .output-viewport {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 2rem 4rem;
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
