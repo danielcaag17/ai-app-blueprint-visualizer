@@ -80,20 +80,12 @@ function App() {
   };
 
   useEffect(() => {
-    mermaid.initialize({ startOnLoad: true }); // Inicializar Mermaid
-    // const diagram = `
-    //   graph TD;
-    //     A-->B;
-    //     A-->C;
-    //     B-->D;
-    //     C-->D;
-    // `;
-    // const element = document.getElementById("mermaidDiagram");
-    // if (element) {
-    //   mermaid.render("mermaidDiagram", diagram, (svgCode) => {
-    //     element.innerHTML = svgCode;
-    //   });
-    // }
+    mermaid.initialize({
+      startOnLoad: false, // desactivar auto-render para evitar conflictos
+      theme: "default",
+      securityLevel: "loose",
+      layout: "elk", // fuerza un layout más estable
+    });
   }, []); // El array vacío significa que este efecto solo se ejecuta una vez, al montar el componente.
 
   return (
