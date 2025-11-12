@@ -7,8 +7,9 @@ import { Header } from "@components/Header.tsx";
 import { ViewManager } from "@utils/ViewManager.tsx";
 import { InitialView } from "@views/InitialView.tsx";
 import { ResultView } from "@views/ResultView.tsx";
+import { ErrorView } from "@views/ErrorView.tsx";
 
-type AppState = "initial" | "processing" | "result";
+type AppState = "initial" | "processing" | "result" | "error";
 type Data = {
   message: string;
   input: string;
@@ -17,6 +18,7 @@ type Data = {
 function App() {
   const [appState, setAppState] = useState<AppState>("initial");
   const [data, setData] = useState<Data | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Simula una petición asíncrona
   const handleStart = async (inputData: string) => {
@@ -24,11 +26,21 @@ function App() {
 
     try {
       const result = await fakeApiCall(inputData);
+
+      // Simulación: si input es "error", lanzamos un error
+      if (inputData.toLowerCase() === "error")
+        throw new Error("Simulación de error");
+
       setData(result);
       setAppState("result");
     } catch (err) {
       console.error(err);
-      setAppState("initial");
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("Error desconocido");
+      }
+      setAppState("error");
     } finally {
       // TODO: limpiar estados si es necesario
     }
@@ -48,6 +60,7 @@ function App() {
       <ResultView data={data} onReset={handleReset} isLoading={true} />
     ),
     result: <ResultView data={data} onReset={handleReset} isLoading={false} />,
+    error: <ErrorView message={errorMessage} onRetry={handleReset} />,
   };
 
   useEffect(() => {
