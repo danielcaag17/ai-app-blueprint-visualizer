@@ -1,7 +1,6 @@
 import "@css/pages/standard-blueprint.css";
-import { useEffect, useRef } from "react";
+import { useMermaid } from "hooks/useMermaid.tsx";
 import type { BlueprintResponse } from "api.ts";
-import mermaid from "mermaid";
 
 interface OutputViewProps {
   data: BlueprintResponse | null;
@@ -10,26 +9,8 @@ interface OutputViewProps {
 }
 
 export function OutputView({ data, description, onReset }: OutputViewProps) {
-  const diagramRef = useRef<HTMLDivElement>(null);
-
   // Renderiza el diagrama Mermaid cuando llegan los datos
-  useEffect(() => {
-    if (!data || !diagramRef.current) return;
-
-    const id = "mermaid-" + Date.now();
-
-    const renderMermaid = async () => {
-      try {
-        const { svg } = await mermaid.render(id, data.mermaidCode);
-        diagramRef.current!.innerHTML = svg;
-      } catch (error) {
-        console.error("Error rendering Mermaid:", error);
-        diagramRef.current!.innerHTML = `<p>Error rendering diagram</p>`;
-      }
-    };
-
-    renderMermaid();
-  }, [data]);
+  const diagramRef = useMermaid(data?.mermaidCode);
 
   return (
     <main className="output-viewport" id="outputView">
