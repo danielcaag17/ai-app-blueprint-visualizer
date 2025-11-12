@@ -5,10 +5,10 @@ interface InputViewProps {
 }
 
 export function InputView({ onStart }: InputViewProps) {
-  const [input, setInput] = useState("hello");
+  const [input, setInput] = useState("");
 
+  // Handler del Generate Button
   const handleClick = () => {
-    setInput(input + " world");
     onStart(input);
   };
 
@@ -22,12 +22,14 @@ export function InputView({ onStart }: InputViewProps) {
           autoFocus
           id="appDescription"
           placeholder="Describe the app you want to visualize... For example: 'A task management app with user authentication, a dashboard showing tasks, and the ability to create, edit, and delete tasks.'"
-        ></textarea>
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
         <div className="button-group">
           <button
             className="btn-primary"
             id="generateBtn"
-            // disabled
+            disabled={!input.trim()}
             onClick={handleClick}
           >
             Generate Blueprint
