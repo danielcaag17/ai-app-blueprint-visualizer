@@ -11,6 +11,7 @@
       "@components/*": ["components/*"],
       "@css/*": ["assets/css/*"],
       "@hooks/*": ["hooks/*"],
+      "@typings/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@views/*": ["views/*"]
     }
