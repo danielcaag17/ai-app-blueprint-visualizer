@@ -12,6 +12,10 @@ export function InputView({ onStart }: InputViewProps) {
     onStart(input);
   };
 
+  const handleClear = () => {
+    setInput(""); // borrar todo el contenido
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     // Si el usuario presiona Enter sin Shift
     if (e.key === "Enter" && !e.shiftKey) {
@@ -47,7 +51,13 @@ export function InputView({ onStart }: InputViewProps) {
           >
             Generate Blueprint
           </button>
-          <button className="btn-secondary" id="clearBtn">
+          {/* TODO: faltan estilos para el botón desactivado */}
+          <button
+            className="btn-secondary"
+            id="clearBtn"
+            onClick={handleClear}
+            disabled={!input.trim()} // Opcional: desactivar si el input está vacío
+          >
             Clear
           </button>
         </div>
