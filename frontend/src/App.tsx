@@ -17,11 +17,13 @@ type AppState = "initial" | "processing" | "result" | "error";
 function App() {
   const [appState, setAppState] = useState<AppState>("initial");
   const [data, setData] = useState<BlueprintResponse | null>(null);
+  const [appDescription, setAppDescription] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Simula una petición asíncrona
   const handleStart = async (inputData: string) => {
     setAppState("processing");
+    setAppDescription(inputData);
 
     try {
       const result: BlueprintResponse = await generateBlueprintFromAPI(
@@ -50,6 +52,7 @@ function App() {
   const handleReset = () => {
     // TODO: ver si el orden importa
     setData(null);
+    setAppDescription("");
     setAppState("initial");
   };
 
@@ -58,9 +61,21 @@ function App() {
   const VIEWS = {
     initial: <InitialView onStart={handleStart} />,
     processing: (
-      <ResultView data={data} onReset={handleReset} isLoading={true} />
+      <ResultView
+        data={data}
+        description={appDescription}
+        onReset={handleReset}
+        isLoading={true}
+      />
     ),
-    result: <ResultView data={data} onReset={handleReset} isLoading={false} />,
+    result: (
+      <ResultView
+        data={data}
+        description={appDescription}
+        onReset={handleReset}
+        isLoading={false}
+      />
+    ),
     error: <ErrorView message={errorMessage} onRetry={handleReset} />,
   };
 

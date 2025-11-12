@@ -2,11 +2,12 @@ import "@css/pages/standard-blueprint.css";
 import type { BlueprintResponse } from "api.ts";
 
 interface OutputViewProps {
-  data: BlueprintResponse;
+  data: BlueprintResponse | null;
+  description: string;
   onReset: () => void;
 }
 
-export function OutputView({ data, onReset }: OutputViewProps) {
+export function OutputView({ data, description, onReset }: OutputViewProps) {
   return (
     <main className="output-viewport" id="outputView">
       {/* Input Column */}
@@ -16,6 +17,7 @@ export function OutputView({ data, onReset }: OutputViewProps) {
           id="outputDescription"
           disabled
           placeholder="Your app description"
+          value={description}
         ></textarea>
         <button className="btn-secondary" id="resetBtn" onClick={onReset}>
           Restart
