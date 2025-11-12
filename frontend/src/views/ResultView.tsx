@@ -1,10 +1,9 @@
 import { OutputView } from "@components/OutputView";
 import { Loading } from "@components/Loading";
-
-type Data = { message: string; input: string } | null;
+import type { BlueprintResponse } from "api.ts";
 
 interface ResultViewProps {
-  data: Data | null;
+  data: BlueprintResponse ;
   onReset: () => void;
   isLoading?: boolean;
 }

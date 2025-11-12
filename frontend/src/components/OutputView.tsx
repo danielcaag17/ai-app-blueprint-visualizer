@@ -1,9 +1,8 @@
 import "@css/pages/standard-blueprint.css";
-
-type Data = { message: string; input: string } | null;
+import type { BlueprintResponse } from "api.ts";
 
 interface OutputViewProps {
-  data: Data;
+  data: BlueprintResponse;
   onReset: () => void;
 }
 

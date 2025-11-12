@@ -9,15 +9,14 @@ import { InitialView } from "@views/InitialView.tsx";
 import { ResultView } from "@views/ResultView.tsx";
 import { ErrorView } from "@views/ErrorView.tsx";
 
+import { generateBlueprintFromAPI } from "api.ts";
+import type { BlueprintResponse } from "api.ts";
+
 type AppState = "initial" | "processing" | "result" | "error";
-type Data = {
-  message: string;
-  input: string;
-};
 
 function App() {
   const [appState, setAppState] = useState<AppState>("initial");
-  const [data, setData] = useState<Data | null>(null);
+  const [data, setData] = useState<BlueprintResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Simula una petición asíncrona
@@ -25,7 +24,9 @@ function App() {
     setAppState("processing");
 
     try {
-      const result = await fakeApiCall(inputData);
+      const result: BlueprintResponse = await generateBlueprintFromAPI(
+        inputData
+      );
 
       // Simulación: si input es "error", lanzamos un error
       if (inputData.toLowerCase() === "error")
@@ -89,10 +90,3 @@ function App() {
 }
 
 export default App;
-
-// Simula una llamada a API
-function fakeApiCall(input: string): Promise<Data> {
-  return new Promise((resolve) =>
-    setTimeout(() => resolve({ message: "Respuesta de la API", input }), 2000)
-  );
-}
