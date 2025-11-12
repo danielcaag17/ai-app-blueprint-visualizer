@@ -12,6 +12,18 @@ export function InputView({ onStart }: InputViewProps) {
     onStart(input);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Si el usuario presiona Enter sin Shift
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // evita salto de línea
+
+      // Asegurar que el input no esté vacio o solo tenga espacios en blanco
+      if (input.trim()) {
+        handleClick(); // llama a la función de generar
+      }
+    }
+  };
+
   return (
     <main className="input-viewport" id="inputView">
       {/* Input view */}
@@ -24,6 +36,7 @@ export function InputView({ onStart }: InputViewProps) {
           placeholder="Describe the app you want to visualize... For example: 'A task management app with user authentication, a dashboard showing tasks, and the ability to create, edit, and delete tasks.'"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <div className="button-group">
           <button
