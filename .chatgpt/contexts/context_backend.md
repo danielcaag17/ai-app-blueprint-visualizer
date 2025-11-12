@@ -12,8 +12,8 @@
 
 - **Stack tecnológico principal:**
 
-  - Python 3.x
-  - FastAPI
+  - Python 3.13.7
+  - FastAPI 0.119.1
   - LLMs: base Google Flan-T5 para _entity/relation extraction_
   - JSON como formato de respuesta y persistencia temporal
 
@@ -30,25 +30,24 @@
 
 2. **Procesamiento en el backend**
 
-- **Extracción de Entidades y Atributos (LLM - Entity)**
+   - **Extracción de Entidades y Atributos (LLM - Entity)**
 
-  - Modelo especializado analiza la descripción para identificar entidades y atributos.
+     - Modelo especializado analiza la descripción para identificar entidades y atributos.
 
-- **Extracción de Relaciones (LLM - Relation)**
+   - **Extracción de Relaciones (LLM - Relation)**
 
-  - Segundo modelo determina relaciones entre las entidades detectadas.
+     - Segundo modelo determina relaciones entre las entidades detectadas.
 
-- **Generación de JSON intermedio**
+   - **Generación de JSON intermedio**
 
-  - Representa entidades, atributos y relaciones en un formato estandarizado.
+     - Representa entidades, atributos y relaciones en un formato estandarizado.
 
-- **Conversión a Mermaid.js**
+   - **Conversión a Mermaid.js**
 
-  - Se genera código Mermaid a partir del JSON.
+     - Se genera código Mermaid a partir del JSON.
 
-- **Generación de explicación textual (LLM - Description)**
-
-  - Tercer modelo produce un texto explicativo sobre el diagrama generado.
+   - **Generación de explicación textual (LLM - Description)**
+     - Tercer modelo produce un texto explicativo sobre el diagrama generado.
 
 3. **Respuesta al frontend**
 
@@ -60,11 +59,11 @@
 
 ## 3. Endpoints principales
 
-| Endpoint            | Prefijo        | Tags                 | Descripción                                               | Notas                      |
-| ------------------- | -------------- | -------------------- | --------------------------------------------------------- | -------------------------- |
-| /api/blueprint      | blueprint      | blueprint            | Genera el diagrama de clases + JSON + descripción textual | Estándar para usuarios     |
-| /api/full-blueprint | full-blueprint | blueprint, structure | Genera blueprint completo + estructura de ficheros        | Para usuarios premium      |
-| /api/structure      | structure      | structure            | Genera la estructura de ficheros base del proyecto        | Independiente de blueprint |
+| Endpoint            | Prefijo        | Tags                 | Descripción                                        | Notas                      |
+| ------------------- | -------------- | -------------------- | -------------------------------------------------- | -------------------------- |
+| /api/blueprint      | blueprint      | blueprint            | Genera el diagrama de clases + descripción textual | Estándar para usuarios     |
+| /api/full-blueprint | full-blueprint | blueprint, structure | Genera blueprint completo + estructura de ficheros | Para usuarios premium      |
+| /api/structure      | structure      | structure            | Genera la estructura de ficheros base del proyecto | Independiente de blueprint |
 
 > Cada endpoint es independiente, aunque `/full-blueprint` combina la funcionalidad de `/blueprint` y `/structure`. Todas las respuestas son en formato JSON.
 
@@ -87,8 +86,8 @@
 **Estado actual:**
 
 - Endpoint `/blueprint` con respuesta hardcodeada
-- Relation extractor aún no implementado
-- Entity extractor entrenado parcialmente (dataset de 50-100 ejemplos)
+- LLM Relation extractor aún no implementado
+- Entity extractor entrenado un modelo básico
 
 ---
 
