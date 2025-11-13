@@ -105,7 +105,7 @@
 
 ---
 
-# 6. Persistencia
+## 6. Persistencia
 
 - Actualmente no hay persistencia permanente.
 - Futuro: gestión de usuarios, conversaciones y logs.
@@ -113,7 +113,7 @@
 
 ---
 
-# 7. Renderización de diagramas
+## 7. Renderización de diagramas
 
 - El backend solo produce JSON y código Mermaid.
 - El frontend se encarga de renderizar Mermaid.js en SVG.
@@ -121,7 +121,7 @@
 
 ---
 
-# 8. Estado actual del desarrollo
+## 8. Estado actual del desarrollo
 
 - Endpoints funcionales (hardcodeados)
 - `/structure` planeado pero pendiente
@@ -131,7 +131,7 @@
 
 ---
 
-# 9. Estructura de directorios del backend
+## 9. Estructura de directorios del backend
 
 ```bash
 backend/
