@@ -4,8 +4,9 @@
 │   ├── contexts/
 │   │   ├── history/
 │   │   │   ├── 2025-11-11_context_v1.md
+│   │   │   ├── 2025-11-11_context_v2.md
 │   │   │   └── _log.md
-│   │   ├── backend.txt
+│   │   ├── context_backend.md
 │   │   └── context_general.md
 │   ├── templates/
 │   │   ├── architecture_design.md
@@ -95,28 +96,15 @@
 │   ├── input-llm-example.json
 │   └── project_file_structure.md
 ├── frontend/
-│   ├── old/
-│   │   ├── js/
-│   │   │   ├── events/
-│   │   │   │   ├── clearTextarea.js
-│   │   │   │   ├── eventsFactory.js
-│   │   │   │   ├── eventsHome.js
-│   │   │   │   ├── eventsPremiumBlueprint.js
-│   │   │   │   ├── eventsStandardBlueprint.js
-│   │   │   │   ├── generateBtn.js
-│   │   │   │   ├── inputWatcher.js
-│   │   │   │   ├── keyboardTeaxtarea.js
-│   │   │   │   └── reset.js
-│   │   │   ├── api.js
-│   │   │   ├── dom.js
-│   │   │   ├── main.js
-│   │   │   ├── render.js
-│   │   │   └── utils.js
-│   │   ├── home.html
-│   │   ├── premium-blueprint.html
-│   │   └── standard-blueprint.html
 │   ├── public/
 │   ├── src/
+│   │   ├── api/
+│   │   │   ├── blueprint/
+│   │   │   │   ├── BaseBlueprintService.ts
+│   │   │   │   ├── PremiumBlueprintService.ts
+│   │   │   │   ├── StandardBlueprintService.ts
+│   │   │   │   └── index.ts
+│   │   │   └── api.ts
 │   │   ├── assets/
 │   │   │   ├── css/
 │   │   │   │   ├── pages/
@@ -129,10 +117,32 @@
 │   │   │   │   └── reset.css
 │   │   │   └── logo.svg
 │   │   ├── components/
+│   │   │   ├── StructureTree/
+│   │   │   │   ├── StructureNode.tsx
+│   │   │   │   ├── StructureTree.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── structureTree.css
+│   │   │   │   └── useStructureTree.tsx
+│   │   │   ├── FullView.tsx
 │   │   │   ├── Header.tsx
 │   │   │   ├── InputView.tsx
 │   │   │   ├── Loading.tsx
 │   │   │   └── OutputView.tsx
+│   │   ├── context/
+│   │   │   ├── UserContext.tsx
+│   │   │   └── useUser.ts
+│   │   ├── hooks/
+│   │   │   ├── useMermaid.tsx
+│   │   │   └── useTechnologies.tsx
+│   │   ├── types/
+│   │   │   ├── apiResponse.ts
+│   │   │   └── structure.ts
+│   │   ├── utils/
+│   │   │   └── ViewManager.tsx
+│   │   ├── views/
+│   │   │   ├── ErrorView.tsx
+│   │   │   ├── InitialView.tsx
+│   │   │   └── ResultView.tsx
 │   │   ├── App.css
 │   │   ├── App.tsx
 │   │   ├── index.css
@@ -152,4 +162,5 @@
 ├── LICENSE
 ├── README.md
 ├── notas.md
+├── requirements-dev.txt
 └── requirements.txt
