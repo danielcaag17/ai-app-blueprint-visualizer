@@ -1,0 +1,35 @@
+.structure-tree {
+  font-family: var(--font-mono, monospace);
+  color: var(--text-primary);
+}
+
+.folder-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.folder-header:hover {
+  color: var(--accent-color, #0077ff);
+}
+
+.arrow {
+  transition: transform 0.2s ease;
+  margin-right: 0.3rem;
+}
+
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+ul {
+  list-style-type: none;
+  margin-left: 1rem;
+  padding-left: 0.5rem;
+  border-left: 1px dashed var(--border-color, #ccc);
+}
+
+.file {
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}

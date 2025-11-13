@@ -1,6 +1,10 @@
 import "@css/pages/premium-blueprint.css";
 import type { FullBlueprintResponse } from "@typings/apiResponse.ts";
 
+import { useTechnologies } from "@hooks/useTechnologies.tsx";
+import { StructureTree } from "@components/StructureTree";
+import { useMermaid } from "@hooks/useMermaid.tsx";
+
 interface FullViewProps {
   data: FullBlueprintResponse | null;
   description: string;
@@ -8,6 +12,13 @@ interface FullViewProps {
 }
 
 export function FullView({ data, description, onReset }: FullViewProps) {
+  // Renderiza el diagrama Mermaid cuando llegan los datos
+  const diagramRef = useMermaid(data?.mermaidCode);
+
+  const technologiesList = useTechnologies(
+    data?.analysis?.recommended_technologies
+  );
+
   return (
     <main className="output-viewport" id="fullOutputViewport">
       {/* Input Column */}
@@ -29,7 +40,11 @@ export function FullView({ data, description, onReset }: FullViewProps) {
       <section className="blueprint-column">
         <div className="blueprint-area">
           <h2>Blueprint Diagram</h2>
-          <div className="diagram-container empty" id="diagramContainer">
+          <div
+            className="diagram-container empty"
+            id="diagramContainer"
+            ref={diagramRef}
+          >
             <p>Your blueprint diagram will appear here</p>
           </div>
         </div>
@@ -76,9 +91,15 @@ export function FullView({ data, description, onReset }: FullViewProps) {
       <section className="blueprint-column">
         <div className="blueprint-area">
           <h2>Structure</h2>
-          <div className="diagram-container empty" id="structureContainer">
-            <p>Your file structure will appear here</p>
-          </div>
+          {data?.structure ? (
+            <div className="diagram-container" id="structureContainer">
+              <StructureTree structure={data.structure} />
+            </div>
+          ) : (
+            <div className="diagram-container empty" id="structureContainer">
+              <p>Your file structure will appear here</p>
+            </div>
+          )}
         </div>
         <button className="btn-primary">Download .zip</button>
         <div className="blueprint-description-area">
@@ -87,7 +108,11 @@ export function FullView({ data, description, onReset }: FullViewProps) {
             className="description-container empty"
             id="technologiesContainer"
           >
-            <p>Recommended technologies will appear here</p>
+            {technologiesList ? (
+              <>{technologiesList}</>
+            ) : (
+              <p>Recommended technologies will appear here</p>
+            )}
           </div>
         </div>
       </section>
