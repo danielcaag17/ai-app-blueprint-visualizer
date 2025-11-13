@@ -38,7 +38,7 @@ Si lo consideras útil, puedes sugerir una estructura de trabajo o priorización
 
 - Ten en cuenta, y muy importante que antes de finalizar la conversación, voy a pedir que me actualizes el apartado "📘 Contexto general" con los cambios hechos para que un cualquier nuevo chat de ChatGPT lea esto y entienda a la perfección el contexto de la aplicación.
 
-- Manten el formato de apartados original que se encuentra en "📘 Contexto general"
+- Manten el formato de apartados original que se encuentra en "📘 Contexto general" y muestrame los cambios en solo aquello que sí se ha modificado
 
 {{notas_opcionales}}
 
