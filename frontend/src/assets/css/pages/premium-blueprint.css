@@ -1,4 +1,6 @@
-.output-viewport {
+/* TODO: hay que hacer refactor pues esto es el código antes de React */
+
+#fullOutputViewport {
   grid-template-columns: 1fr 1fr 1fr;
 }
 

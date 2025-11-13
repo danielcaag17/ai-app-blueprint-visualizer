@@ -1,4 +1,5 @@
 import { OutputView } from "@components/OutputView";
+import { FullView } from "@components/FullView";
 import { Loading } from "@components/Loading";
 import type { BlueprintResponse } from "@utils/api";
 import { useUser } from "@context/useUser.ts";
@@ -28,9 +29,7 @@ export function ResultView({
           como structure, BPMN y otra documentación */}
         </>
       ) : (
-        <div>
-          <h2>Vista premium</h2>
-        </div>
+        <FullView />
       )}
     </>
   );
