@@ -1,6 +1,7 @@
 import { OutputView } from "@components/OutputView";
 import { Loading } from "@components/Loading";
-import type { BlueprintResponse } from "api.ts";
+import type { BlueprintResponse } from "@utils/api";
+import { useUser } from "../context/useUser.ts";
 
 interface ResultViewProps {
   data: BlueprintResponse | null;
@@ -15,12 +16,22 @@ export function ResultView({
   onReset,
   isLoading,
 }: ResultViewProps) {
+  const { userType } = useUser();
+
   return (
     <>
       {isLoading && <Loading />}
-      <OutputView data={data} description={description} onReset={onReset} />
-      {/* TODO: aquí se pueden añadir componentes extra que compongan la solución
+      {userType === "normal" ? (
+        <>
+          <OutputView data={data} description={description} onReset={onReset} />
+          {/* TODO: aquí se pueden añadir componentes extra que compongan la solución
           como structure, BPMN y otra documentación */}
+        </>
+      ) : (
+        <div>
+          <h2>Vista premium</h2>
+        </div>
+      )}
     </>
   );
 }
