@@ -1,7 +1,7 @@
 import { OutputView } from "@components/OutputView";
 import { Loading } from "@components/Loading";
 import type { BlueprintResponse } from "@utils/api";
-import { useUser } from "../context/useUser.ts";
+import { useUser } from "@context/useUser.ts";
 
 interface ResultViewProps {
   data: BlueprintResponse | null;

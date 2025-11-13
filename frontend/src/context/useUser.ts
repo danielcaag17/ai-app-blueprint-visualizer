@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import UserContext from "./UserContext.tsx";
-import type { UserContextType } from "./UserContext.tsx";
+import UserContext from "@context/UserContext.tsx";
+import type { UserContextType } from "@context/UserContext.tsx";
 
 // Hook para usar el contexto
 export const useUser = (): UserContextType => {
