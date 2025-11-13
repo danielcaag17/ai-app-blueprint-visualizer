@@ -9,8 +9,8 @@ import { InitialView } from "@views/InitialView.tsx";
 import { ResultView } from "@views/ResultView.tsx";
 import { ErrorView } from "@views/ErrorView.tsx";
 
-import { generateBlueprintFromAPI } from "api.ts";
-import type { BlueprintResponse } from "api.ts";
+import { generateBlueprintFromAPI } from "@utils/api";
+import type { BlueprintResponse } from "@utils/api";
 
 type AppState = "initial" | "processing" | "result" | "error";
 
@@ -21,6 +21,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Simula una petición asíncrona
+  // TODO: ver si de aquí se puede sacar la lógica a un hook
   const handleStart = async (inputData: string) => {
     setAppState("processing");
     setAppDescription(inputData);
@@ -65,6 +66,7 @@ function App() {
         data={data}
         description={appDescription}
         onReset={handleReset}
+        // TODO: este loading pordría ser con un useState
         isLoading={true}
       />
     ),
@@ -80,6 +82,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log("Inicializando Mermaid...");
     mermaid.initialize({
       startOnLoad: false, // desactivar auto-render para evitar conflictos
       theme: "default",
