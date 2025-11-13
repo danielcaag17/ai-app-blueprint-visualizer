@@ -29,24 +29,32 @@ Está diseñado para desarrolladores, startups y entusiastas que quieren validar
 
 ---
 
-## 🧰 Tecnologías Principales (provisionales)
+## 🧰 Tecnologías Principales
 
-| Área           | Tecnología                          | Descripción                                          |
-| -------------- | ----------------------------------- | ---------------------------------------------------- |
-| Backend        | **FastAPI** (Python)                | API modular y rápida para comunicación con IA        |
-| Frontend       | **HTML + TailwindCSS + Vanilla JS** | Simplicidad y control total del diseño inicial       |
-| IA Base        | **Llama 3 (Meta)** o **Mistral 7B** | Modelos open source, con opción de fine-tuning local |
-| Visualización  | **Mermaid.js / D3.js**              | Para representar la arquitectura generada            |
-| Almacenamiento | **SQLite o JSON local**             | Persistencia mínima para prototipo inicial           |
+| Área                        | Tecnología / Herramienta                               | Descripción                                                                     |
+| --------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| **Backend**                 | **FastAPI (Python 3.13)**                              | Framework ligero y rápido para exponer endpoints REST y gestionar la lógica IA. |
+| **Frontend**                | **React + TypeScript + Vite**                          | SPA modular y reactiva para visualizar los blueprints y diagramas Mermaid.      |
+| **IA Base**                 | **Modelos open source (Flan-T5, LLaMA 3, Mistral 7B)** | Procesamiento del texto y generación del análisis técnico.                      |
+| **Visualización**           | **Mermaid.js**                                         | Renderización de diagramas arquitectónicos generados por la IA.                 |
+| **Persistencia**            | **JSON temporal / SQLite (planeado)**                  | Almacenamiento mínimo para pruebas; planeado registro de usuarios y logs.       |
+| **Estilos**                 | **CSS modular**                                        | Sistema visual simple, escalable y adaptable a temas futuros (dark/light).      |
+| **Gestión de dependencias** | **pnpm (frontend)** / **pip (backend)**                | Entornos separados para desarrollo y despliegue.                                |
 
 ---
 
 ## 🔬 Posibles Extensiones Futuras
 
-- 🎨 Interfaz más rica con React o Svelte.
-- 🔄 Integración con IA especializada en generación de código (CodeLlama, StarCoder, etc.).
-- 💾 Exportación directa a repositorios GitHub.
-- 🧠 Entrenamiento incremental (fine-tuning) según feedback del usuario.
+- 🧩 **Autenticación y gestión de usuarios** (tipos _standard_ y _premium_) con persistencia y sesión.
+- 📦 **Descarga completa de blueprints:** exportar estructuras, diagramas y documentación en `.zip`.
+- 💾 **Base de datos persistente (SQLite / PostgreSQL)** para guardar proyectos y logs.
+- 🧠 **Fine-tuning de modelos IA** con dataset propio de descripciones y relaciones.
+- 🎨 **Interfaz mejorada:** temas claro/oscuro, vistas interactivas y estilo visual refinado.
+- 🔄 **Interactividad con diagramas Mermaid** (zoom, resalte, navegación de entidades).
+- 🚀 **Integración CI/CD y contenedores Docker** para despliegue unificado backend + frontend.
+- 🧰 **CLI o API pública** para generar blueprints desde línea de comandos.
+- 🔄 **Integración con IA especializada** en generación de código (CodeLlama, StarCoder, etc.).
+- 💾 **Exportación directa a repositorios GitHub**.
 
 ---
 
@@ -56,55 +64,85 @@ Está diseñado para desarrolladores, startups y entusiastas que quieren validar
 
 ai-app-blueprint-visualizer/
 │
+├── .chatgpt/
+│   ├── contexts/
+│   │   ├── history/
+│   │   │   ├── 2025-11-11_context_v1.md
+│   │   │   └── _log.md
+│   │   ├── context_backend.md
+│   │   ├── context_frontend.md
+│   │   └── context_general.md
+│   ├── templates/
+│   │   ├── architecture_design.md
+│   │   ├── bug_analysis.md
+│   │   ├── context_template.md
+│   │   ├── docstring_generator.md
+│   │   ├── refactor_code.md
+│   │   └── test_generator.md
+│   └── launcher.sh
+│
 ├── backend/ # API principal con FastAPI y lógica de generación
-│ ├── main.py # Punto de entrada FastAPI
-│ ├── models/
-│ │ ├── analysis_schemas.py
-│ │ ├── blueprint_schemas.py
-│ │ ├── request_schemas.py
-│ │ └── response_schemas.py
-│ ├── routes/
-│ │ ├── blueprint.py # Endpoint para procesar descripciones y generar diagrama mermaid
-│ │ └── full_blueprint.py
-│ │ └── generate_structure.py
-│ ├── services/
-│ │ ├── ai_model.py # Interfaz con modelo LLM local
-│ │ ├── mermaid_generator.py # Interfaz con modelo LLM local
-│ │ └── structure_builder.py # Generador de estructura a partir del análisis
-│ └── utils/
-│ └──── helpers.py
+│   ├── core/
+│   │ ├── config.py
+│   │ └── model_manager.py
+│   ├── ml_models/
+│   │ ├── entity_extractor/
+│   │ └── relation_extractor/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── utils/
+│   ├── main.py
+│   └── router.py
 │
 ├── frontend/ # Interfaz web para introducir ideas y visualizar resultados
-│ ├── home.html
-│ ├── premium-blueprint.html
-│ ├── standard-blueprint.html
-│ ├── css/
-│ │ ├── pages/
-│ │ │ ├── home.css
-│ │ │ ├── premium-blueprint.css
-│ │ │ └── standard-blueprint.css
-│ │ ├── components.css
-│ │ ├── globals.css
-│ │ ├── layouts.css
-│ │ └── reset.css
-│ ├── js/
-│ │ ├── events/
-│ │ │ ├── clearTextarea.js
-│ │ │ ├── eventsFactory.js
-│ │ │ ├── eventsHome.js
-│ │ │ ├── eventsPremiumBlueprint.js
-│ │ │ ├── eventsStandardBlueprint.js
-│ │ │ ├── generateBtn.js
-│ │ │ ├── inputWatcher.js
-│ │ │ ├── keyboardTextarea.js
-│ │ │ └── reset.js
-│ │ ├── api.js
-│ │ ├── dom.js
-│ │ ├── main.js
-│ │ ├── render.js
-│ │ └── utils.js
-│ └── assets/
-│ └──── logo.svg
+│   ├── public/
+│   ├── src/
+│   │   ├── api/
+│   │   │   ├── blueprint/
+│   │   │   │   ├── BaseBlueprintService.ts
+│   │   │   │   ├── PremiumBlueprintService.ts
+│   │   │   │   ├── StandardBlueprintService.ts
+│   │   │   │   └── index.ts
+│   │   │   └── api.ts
+│   │   ├── assets/
+│   │   │   ├── css/
+│   │   │   │   ├── pages/
+│   │   │   │   ├── components.css
+│   │   │   │   ├── globals.css
+│   │   │   │   ├── layouts.css
+│   │   │   │   └── reset.css
+│   │   │   └── logo.svg
+│   │   ├── components/
+│   │   │   ├── StructureTree/
+│   │   │   ├── FullView.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── InputView.tsx
+│   │   │   ├── Loading.tsx
+│   │   │   └── OutputView.tsx
+│   │   ├── context/
+│   │   │   ├── UserContext.tsx
+│   │   │   └── useUser.ts
+│   │   ├── hooks/
+│   │   │   ├── useMermaid.tsx
+│   │   │   └── useTechnologies.tsx
+│   │   ├── types/
+│   │   │   ├── apiResponse.ts
+│   │   │   └── structure.ts
+│   │   ├── utils/
+│   │   │   └── ViewManager.tsx
+│   │   ├── views/
+│   │   │   ├── ErrorView.tsx
+│   │   │   ├── InitialView.tsx
+│   │   │   └── ResultView.tsx
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   └── main.tsx
+│   ├── index.html
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── vite.config.ts
 │
 ├── ai/ # Modelos, prompts y configuración de IA
 │ ├── base_model.py # Wrapper para modelo local (Llama, Mistral, etc.)
@@ -123,12 +161,14 @@ ai-app-blueprint-visualizer/
 │
 ├── docs/ # Documentación, diagramas o notas de desarrollo
 │
+├── scripts/ # Scripts varios
+│
 ├── .gitignore
-├── context.txt # Contexto actualizado de la aplicación
-├── notas.txt # Futuras implementaciones
-├── requirements.txt
+├── LICENSE
 ├── README.md
-└── LICENSE
+├── notas.txt # Futuras implementaciones
+├── requirements-dev.txt # Exactamente todas las dependencias y versiones (pip freeze > requirements-dev.txt)
+└── requirements.txt
 
 ```
 
@@ -148,9 +188,12 @@ source .venv/bin/activate  # en Linux/Mac
 pip install -r requirements.txt
 
 # 3. Ejecutar backend
-uvicorn backend.main:app --reload
+uvicorn backend.main:app --reload  # servicio disponible en http://localhost:8000
 
-# 4. Abrir frontend/index.html en el navegador
+# 4. Ejecutar frontend (otra terminal)
+cd frontend
+pnpm install               # o npm install / yarn install
+pnpm run dev               # inicia el servidor (http://localhost:5173)
 ```
 
 ---
@@ -163,14 +206,6 @@ Este proyecto pretende combinar IA + pensamiento arquitectónico, ayudando a los
 Cada iteración busca mejorar la comprensión mutua entre humanos y máquinas a la hora de diseñar software.
 
 ---
-
-<!-- ## 📅 Estado Actual
-
-- ✅ Semana 1: Definición del alcance y arquitectura inicial
-- 🔄 Semana 2: Primer prototipo de interfaz y comunicación con IA
-- ⏳ En progreso...
-
---- -->
 
 ## 🧑‍💻 Autor
 
