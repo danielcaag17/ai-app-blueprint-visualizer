@@ -1,6 +1,8 @@
-import { StrictMode } from "react";
+import { StrictMode } from "react"; // Útil para desarrollo
 import { createRoot } from "react-dom/client";
 import App from "App.tsx";
+
+import { UserProvider } from "./context/UserContext";
 
 // CSS globales
 import "@css/reset.css";
@@ -10,6 +12,8 @@ import "@css/layouts.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </StrictMode>
 );
