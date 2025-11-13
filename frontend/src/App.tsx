@@ -9,26 +9,35 @@ import { InitialView } from "@views/InitialView.tsx";
 import { ResultView } from "@views/ResultView.tsx";
 import { ErrorView } from "@views/ErrorView.tsx";
 
-import { generateBlueprintFromAPI } from "@utils/api";
-import type { BlueprintResponse } from "@utils/api";
+import { generateBlueprintFromAPI } from "api/api";
+import { useUser } from "@context/useUser.ts";
+
+import type {
+  BlueprintResponse,
+  FullBlueprintResponse,
+} from "@typings/apiResponse";
 
 type AppState = "initial" | "processing" | "result" | "error";
 
 function App() {
   const [appState, setAppState] = useState<AppState>("initial");
-  const [data, setData] = useState<BlueprintResponse | null>(null);
+  const [data, setData] = useState<
+    BlueprintResponse | FullBlueprintResponse | null
+  >(null);
   const [appDescription, setAppDescription] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const { userType } = useUser();
 
-  // Simula una petición asíncrona
   // TODO: ver si de aquí se puede sacar la lógica a un hook
   const handleStart = async (inputData: string) => {
     setAppState("processing");
     setAppDescription(inputData);
 
     try {
-      const result: BlueprintResponse = await generateBlueprintFromAPI(
-        inputData
+      const result = await generateBlueprintFromAPI(
+        inputData,
+        userType,
+        "http://localhost:8000"
       );
 
       // Simulación: si input es "error", lanzamos un error

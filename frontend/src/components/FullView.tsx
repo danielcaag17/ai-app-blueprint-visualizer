@@ -1,6 +1,13 @@
 import "@css/pages/premium-blueprint.css";
+import type { FullBlueprintResponse } from "@typings/apiResponse.ts";
 
-export function FullView() {
+interface FullViewProps {
+  data: FullBlueprintResponse | null;
+  description: string;
+  onReset: () => void;
+}
+
+export function FullView({ data, description, onReset }: FullViewProps) {
   return (
     <main className="output-viewport" id="fullOutputViewport">
       {/* Input Column */}

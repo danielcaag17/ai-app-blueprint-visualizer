@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import type { ReactNode } from "react";
 
 // Definir los tipos posibles de usuario
-type UserType = "normal" | "premium";
+export type UserType = "normal" | "premium";
 
 // Estado del contexto
 export interface UserContextType {
