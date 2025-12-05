@@ -7,8 +7,25 @@ datos…)
 Devuelve un JSON con clases y atributos
 '''
 class EntityLLMExtractor:
+
+    '''
+    El train ha generado varios ficheros, pero al final los que interesan son:
+        Para el tokenizer:
+        - tokenizer.json
+        - tokenizer_config.json
+        - special_tokens_map.json
+        - vocab.txt o merges.txt (si existen)
+        
+        Para el modelos:
+        - config.json (arquitectura, nº de capas, hidden, size, etiquetas, etc.)
+        - model_safetensors (pesos)
+        - generation_config.json (solo modelos generativos)
+        - archivos auxiliares si es que hay (optimizer.pt, etc.)
+    '''
+
     def __init__(self, model_path: str):
         # Clase que convierte el texto en tokens
+        # TODO: tal vez el model_path no es del todo necesario pues al final es el path del fichero actual
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         # Modelo de Hugging Face para trabajar token a token y clasificarlos con etiquetas
         # Luego con post-procesamiento se agrupan los tokens con mismas etiquetas para extraer

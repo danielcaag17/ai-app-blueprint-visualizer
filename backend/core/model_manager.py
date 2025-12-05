@@ -1,7 +1,7 @@
 # app/core/model_manager.py
 from typing import Optional
-from backend.ml_models.entity_extractor.model import EntityLLMExtractor
-from backend.ml_models.relation_extractor.model import RelationLLMExtractor
+from backend.ml_models.entity_extractor.prod.model import EntityLLMExtractor
+from backend.ml_models.relation_extractor.prod.model import RelationLLMExtractor
 
 class ModelManager:
     def __init__(self):
