@@ -25,6 +25,8 @@ fine_tuned_model/
 dataset/
 train.jsonl
 val.jsonl
+prod/
+!prod/model.py
 
 # === System Files ===
 .DS_Store
