@@ -22,6 +22,7 @@ ENV/
 *.pt
 *.bin
 fine_tuned_model/
+dataset/
 train.jsonl
 val.jsonl
 
