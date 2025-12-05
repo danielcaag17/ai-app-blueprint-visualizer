@@ -10,8 +10,9 @@ class ModelManager:
 
     async def load_models(self):
         print("🚀 Cargando modelos NLP...")
-        self.entity_model = EntityLLMExtractor("backend/ml_models/entity_extractor/")
-        self.relation_model = RelationLLMExtractor("backend/ml_models/relation_extractor/")
+        self.entity_model = EntityLLMExtractor("backend/ml_models/entity_extractor/prod/")
+        # Not implemented yet
+        # self.relation_model = RelationLLMExtractor("backend/ml_models/relation_extractor/prod/")
         print("✅ Modelos cargados correctamente")
 
     async def unload_models(self):
