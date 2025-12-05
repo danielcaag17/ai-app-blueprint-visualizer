@@ -7,9 +7,10 @@ WORKDIR /app
 # ARG VITE_BACKEND_URL
 # ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
 
+RUN npm install -g pnpm
+
 COPY package*.json ./
 
-RUN npm install -g pnpm
 RUN pnpm install
 
 COPY . .
