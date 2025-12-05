@@ -1,0 +1,28 @@
+# ================================
+# Backend development image
+# ================================
+FROM python:3.13.7-slim
+
+WORKDIR /app
+
+# Dependencias del sistema (solo lo necesario)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements
+COPY requirements.txt .
+
+# Instalar TODAS las dependencias de desarrollo
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Instalar PyTorch CPU (siempre necesario para cargar tus modelos)
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Exponer FastAPI
+EXPOSE 8000
+
+# Comando para desarrollo con autoreload
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

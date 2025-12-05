@@ -1,0 +1,44 @@
+# docker-compose -f docker-compose.dev.yaml -p blueprint_visualizer-dev up --build -d
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    image: blueprint_visualizer-backend:dev
+    container_name: backend_dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+    environment:
+      - ENV=development
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    image: blueprint_visualizer-frontend:dev
+    container_name: frontend_dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    # Es el navegador que ejecuta el frontend, por lo que no sabe resolver "backend"
+    environment:
+      # VITE_BACKEND_URL: "http://backend:8000/api"
+      VITE_BACKEND_URL: "http://localhost:8000/api"
+    networks:
+      - app_network
+    # No garantiza que el backend acepte conexiones
+    depends_on:
+      - backend
+
+networks:
+  app_network:
+    driver: bridge
