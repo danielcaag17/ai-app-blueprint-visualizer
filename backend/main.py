@@ -38,3 +38,7 @@ async def lifespan(app: FastAPI):
 async def root():
     return {"message": "AI App Blueprint Visualizer API is running"}
 
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
