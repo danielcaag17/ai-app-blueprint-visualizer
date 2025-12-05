@@ -1,0 +1,28 @@
+# Ignorar node_modules para evitar copiar las dependencias locales al contenedor
+
+node_modules/
+
+# Ignorar directorios de configuración de IDEs
+
+.vscode/
+.idea/
+
+# Ignorar archivos de configuración específicos de entorno
+
+.env
+.env.local
+.env.development
+.env.test
+
+# Ignorar archivos de log
+
+\*.log
+
+# Ignorar archivos temporales de macOS
+
+.DS_Store
+
+# Ignorar otros archivos innecesarios
+
+_.bak
+_.tmp
