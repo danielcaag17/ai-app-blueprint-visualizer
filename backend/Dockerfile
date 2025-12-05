@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copiar requirements primero para usar cache
 COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ================================
@@ -22,6 +23,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 FROM python:3.13.7-slim AS runtime
 
 WORKDIR /app
+
+# Instalar SOLO lo necesario en producción
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
 # Copiar solo dependencias ya instaladas
 COPY --from=builder /usr/local/lib/python3.13 /usr/local/lib/python3.13
