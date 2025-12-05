@@ -1,0 +1,25 @@
+# TODO: refine coments
+# Ignorar el directorio de caché de Python
+__pycache__/
+
+# Ignorar archivos temporales generados por el editor
+.vscode/
+.idea/
+
+# Ignorar archivos de configuración específicos de entorno
+.env
+.env.* # Si tienes diferentes archivos de entorno, como .env.dev, .env.production, etc.
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar directorios de pruebas o archivos temporales
+tests/
+*.bak
+*.tmp
+
+# Ignorar archivos específicos del sistema operativo (como .DS_Store en macOS)
+.DS_Store
+
+
+ml_models/entity_extractor/train/

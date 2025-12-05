@@ -1,0 +1,61 @@
+# Execute docker-compose -p blueprint_visualizer-build up --build -d
+# When the images are already built docker-compose up -d --no-build
+# To stop: docker-compose down
+# To stop + delete images: docker-compose down --rmi all
+# To stop + delete everything: docker-compose down --volumes --rmi all
+
+services:
+  backend:
+    # Por ahora construyo la imagen a partir de mi Dockerfile localmente
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # Esto es solo para añadir nombre a la imagen
+    image: blueprint_visualizer-backend:prod
+    container_name: backend_prod
+    restart: unless-stopped
+    # env_file:
+    #   - ./backend/.env
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    environment:
+      - ENV=production
+      # Variable para indicar que no se guarden los logs en buffer sino que se muestren
+      # en stdout en tiempo real
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test:
+        # Comando en python para no instalar curl en la imagen
+        [
+          "CMD-SHELL",
+          'python3 -c ''import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/health")''',
+        ]
+      interval: 10s
+      retries: 5
+      start_period: 20s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: blueprint_visualizer-frontend:prod
+    container_name: frontend_prod
+
+    ports:
+      - "3000:80"
+    networks:
+      - app_network
+    environment:
+      # Next.js llama al backend desde el servidor
+      VITE_BACKEND_URL: "http://backend:8000"
+      VITE_NODE_ENV: production
+    # env_file:
+    #   - ./frontend/.env
+    depends_on:
+      - backend
+
+networks:
+  app_network:
+    driver: bridge
