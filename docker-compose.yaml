@@ -26,13 +26,16 @@ services:
       # en stdout en tiempo real
       - PYTHONUNBUFFERED=1
     healthcheck:
+      # En producción podría quitar el healtcheck si estoy seguro de que no falla
+      disable: false
       test:
         # Comando en python para no instalar curl en la imagen
         [
           "CMD-SHELL",
           'python3 -c ''import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/health")''',
         ]
-      interval: 10s
+      # interval: 10s
+      interval: 5m
       retries: 5
       start_period: 20s
 
@@ -40,17 +43,18 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      # Pasasr variables al entorno de build, pues Vite las varialbes de entorno se
+      # incrustan en tiempo de build
+      # args:
+      #   VITE_BACKEND_URL: "http://backend:8000"
     image: blueprint_visualizer-frontend:prod
     container_name: frontend_prod
-
     ports:
       - "3000:80"
     networks:
       - app_network
-    environment:
-      # Next.js llama al backend desde el servidor
-      VITE_BACKEND_URL: "http://backend:8000"
-      VITE_NODE_ENV: production
+    # environment:
+    #   VITE_NODE_ENV: production
     # env_file:
     #   - ./frontend/.env
     depends_on:
