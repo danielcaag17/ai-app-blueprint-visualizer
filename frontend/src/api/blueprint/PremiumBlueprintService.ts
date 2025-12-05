@@ -12,7 +12,7 @@ export class PremiumBlueprintService
 
   async generateBlueprint(description: string): Promise<FullBlueprintResponse> {
     // TODO: Reemplazar con la llamada real a la API
-    const response = await fetch(`${this.baseUrl}/api/full-blueprint`, {
+    const response = await fetch(`${this.baseUrl}/full-blueprint/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description }),

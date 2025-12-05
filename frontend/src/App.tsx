@@ -19,6 +19,9 @@ import type {
 
 type AppState = "initial" | "processing" | "result" | "error";
 
+// TODO: later it can be just imported in the /api
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 function App() {
   const [appState, setAppState] = useState<AppState>("initial");
   const [data, setData] = useState<
@@ -37,7 +40,7 @@ function App() {
       const result = await generateBlueprintFromAPI(
         inputData,
         userType,
-        "http://localhost:8000"
+        API_URL
       );
 
       // Simulación: si input es "error", lanzamos un error

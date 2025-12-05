@@ -12,7 +12,7 @@ export class NormalBlueprintService
 
   async generateBlueprint(description: string): Promise<BlueprintResponse> {
     // TODO: Reemplazar con la llamada real a la API
-    const response = await fetch(`${this.baseUrl}/api/blueprint`, {
+    const response = await fetch(`${this.baseUrl}/blueprint/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description }),
