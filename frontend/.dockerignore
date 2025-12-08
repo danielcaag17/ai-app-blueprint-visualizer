@@ -1,9 +1,10 @@
 # Ignorar node_modules para evitar copiar las dependencias locales al contenedor
-
 node_modules/
 
-# Ignorar directorios de configuración de IDEs
+# Ignorar lock files locales
+pnpm-lock.yaml
 
+# Ignorar directorios de configuración de IDEs
 .vscode/
 .idea/
 
@@ -26,3 +27,7 @@ node_modules/
 
 _.bak
 _.tmp
+
+
+# Ignorar salida de builds antiguos
+dist/

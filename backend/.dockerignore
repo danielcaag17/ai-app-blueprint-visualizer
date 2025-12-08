@@ -1,6 +1,6 @@
 # TODO: refine coments
 # Ignorar el directorio de caché de Python
-__pycache__/
+**/__pycache__/
 
 # Ignorar archivos temporales generados por el editor
 .vscode/
@@ -22,4 +22,4 @@ tests/
 .DS_Store
 
 
-ml_models/entity_extractor/train/
+ml_models/**/train/
