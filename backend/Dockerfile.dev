@@ -11,12 +11,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
+# Actualizar pip primero (capa estable si no cambia la versión base)
+RUN pip install --no-cache-dir --upgrade pip
+
 # Copiar requirements
 COPY requirements.txt .
 
 # Instalar TODAS las dependencias de desarrollo
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Instalar PyTorch CPU (siempre necesario para cargar tus modelos)
 RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
