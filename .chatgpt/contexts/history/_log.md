@@ -1,5 +1,9 @@
 # Context History Log
 
+# 2025-12-08
+
+- Docker añadido a `context_general.md`
+
 # 2025-11-13
 
 - Creación de `context_frontend.md` con los detalles del estado actual
