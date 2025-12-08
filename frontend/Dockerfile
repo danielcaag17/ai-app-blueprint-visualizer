@@ -17,7 +17,7 @@ COPY . .
 RUN pnpm run build
 
 # 2) Production stage (Nginx)
-FROM nginx:stable-alpine
+FROM nginx:stable-alpine AS runtime
 
 # Copia configuración personalizada de Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
