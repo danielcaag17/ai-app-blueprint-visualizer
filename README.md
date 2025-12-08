@@ -6,7 +6,6 @@ Permite describir una aplicación en lenguaje natural y genera automáticamente:
 - 📁 una arquitectura de carpetas coherente
 - ⚙️ las tecnologías recomendadas
 - 🧩 componentes y clases principales
-<!-- - 🧠 un plan de desarrollo generado por IA -->
 
 ---
 
@@ -195,6 +194,20 @@ cd frontend
 pnpm install               # o npm install / yarn install
 pnpm run dev               # inicia el servidor (http://localhost:5173)
 ```
+
+---
+
+## 🐳 Ejecutar con Docker
+
+Este proyecto incluye configuraciones de Docker y Docker Compose para levantar el backend y el frontend de forma unificada, sin necesidad de instalar Python ni Node localmente.
+
+La forma más sencilla de levantar el proyecto (backend + frontend):
+
+```bash
+docker compose up --build -d
+```
+
+> Para más detalles (comandos adicionales, desarrollo, producción, etc.), consulta la documentación en: `docs/docker.md`
 
 ---
 
