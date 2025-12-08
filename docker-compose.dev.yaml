@@ -1,5 +1,9 @@
 # docker compose -f docker-compose.dev.yaml -p blueprint_visualizer-dev up --build -d
 
+# Esto solo funciona si los tests estan montados como volumen
+# docker compose -f docker-compose.dev.yaml exec backend pytest
+
+
 services:
   backend:
     build:
