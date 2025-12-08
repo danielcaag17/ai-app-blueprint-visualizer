@@ -1,4 +1,4 @@
-# docker-compose -f docker-compose.dev.yaml -p blueprint_visualizer-dev up --build -d
+# docker compose -f docker-compose.dev.yaml -p blueprint_visualizer-dev up --build -d
 
 services:
   backend:
@@ -17,6 +17,18 @@ services:
     networks:
       - app_network
     restart: unless-stopped
+    healthcheck:
+      disable: false
+      test:
+        # Comando en python para no instalar curl en la imagen
+        [
+          "CMD-SHELL",
+          'python3 -c ''import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/health")''',
+        ]
+      # interval: 10s
+      interval: 5m
+      retries: 5
+      start_period: 20s
 
   frontend:
     build:
