@@ -55,7 +55,7 @@ training_args = TrainingArguments(
     learning_rate=2e-5,
     per_device_train_batch_size=2,
     per_device_eval_batch_size=2,
-    num_train_epochs=3,
+    num_train_epochs=5,
     weight_decay=0.01,
     save_total_limit=2,
     logging_dir=str(OUTPUT_DIR / "logs"),
@@ -84,38 +84,3 @@ model.save_pretrained(OUTPUT_DIR)
 tokenizer.save_pretrained(OUTPUT_DIR)
 
 print(f"✅ Modelo fine-tuneado y guardado en: {OUTPUT_DIR}")
-
-
-# TODO: para refinar lo siguiente:
-# Se podría poner en un script aparte como export_model.py
-import shutil
-from pathlib import Path
-
-def export_to_prod(train_dir, prod_dir):
-    train_dir = Path(train_dir)
-    prod_dir = Path(prod_dir)
-    prod_dir.mkdir(parents=True, exist_ok=True)
-
-    needed = [
-        "config.json",
-        "model.safetensors",
-        "tokenizer.json",
-        "tokenizer_config.json",
-        "special_tokens_map.json",
-        "generation_config.json",
-    ]
-
-    for filename in needed:
-        src = train_dir / "fine_tuned_model" / filename
-        dst = prod_dir / filename
-        if src.exists():
-            shutil.copy(src, dst)
-            print(f"Copiado: {src} -> {dst}")
-        else:
-            print(f"⚠️ No encontrado: {src}")
-
-
-export_to_prod(
-    "ml_models/entity_extractor/train",
-    "ml_models/entity_extractor/prod",
-)
