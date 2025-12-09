@@ -27,6 +27,7 @@ class BaseModel:
         self.model_name = config.get("model_name", "model_name")
         self.epochs = config.get("epcohs", 10)
         self.batch_size = config.get("batch_size", 16)
+        self.test_input = config.get("test_input", {})
 
         self.tokenizer = None
         self.model = None
@@ -149,4 +150,17 @@ class BaseModel:
     # ----------------------
     def validate(self):
         print(f"Validando modelo con {self.config}")
-        # Aquí va la lógica común de validación
+        tokenizer = AutoTokenizer.from_pretrained(self.output_dir)
+        model = AutoModelForSeq2SeqLM.from_pretrained(self.output_dir)
+
+        # Convertimos a JSON string para el modelo
+        input_text = json.dumps(self.test_input)
+
+        # Tokenizamos y generamos salida
+        inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512)
+        outputs = model.generate(**inputs, max_length=512)
+
+        # Decodificamos
+        decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        print(decoded)
+        
