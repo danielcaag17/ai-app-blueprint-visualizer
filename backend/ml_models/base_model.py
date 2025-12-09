@@ -15,7 +15,7 @@ class BaseModel:
 
         # Rutas
         self.dataset_dir = self.base_dir / "dataset"
-        self.full_dataset_path = self.dataset_dir / "full-datset.jsonl"
+        self.full_dataset_path = self.dataset_dir / "full-dataset.jsonl"
         self.train_path = self.dataset_dir / "train.jsonl"
         self.val_path = self.dataset_dir / "val.jsonl"
         self.output_dir = Path(config.get("output_dir", self.base_dir / "fine_tuned_model"))
@@ -85,8 +85,8 @@ class BaseModel:
         dataset = load_dataset(
             "json",
             data_files={
-                "train": self.train_path,
-                "validation": self.val_path,
+                "train": str(self.train_path),
+                "validation": str(self.val_path),
             }
         )
 
@@ -110,7 +110,7 @@ class BaseModel:
     # Función principal de entrenamiento
     # ----------------------
     def train(self):
-        print(f"Entrenando modelo con {self.config}")
+        print(f"Entrenando modelo con {self.model_name}")
         dataset = self.load_data()
 
         tokenized_datasets = dataset.map(lambda batch: self.preprocess_function(batch), batched=True)
@@ -149,12 +149,13 @@ class BaseModel:
     # Función principal de validación del modelo
     # ----------------------
     def validate(self):
-        print(f"Validando modelo con {self.config}")
+        print(f"Validando modelo con {self.model_name}")
         tokenizer = AutoTokenizer.from_pretrained(self.output_dir)
         model = AutoModelForSeq2SeqLM.from_pretrained(self.output_dir)
 
         # Convertimos a JSON string para el modelo
         input_text = json.dumps(self.test_input)
+        print("Input de prueba:", input_text)
 
         # Tokenizamos y generamos salida
         inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512)
